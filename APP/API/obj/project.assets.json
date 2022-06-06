@@ -1426,6 +1426,15 @@
           }
         }
       },
+      "MySqlConnector/2.1.10": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/MySqlConnector.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/MySqlConnector.dll": {}
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -5383,6 +5392,35 @@
         "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "MySqlConnector/2.1.10": {
+      "sha512": "aVvetx5uRWlfnxXlbybf4t6plnH5IGrXSue8R2ZsBOAH8VfS1GuNYqQ4KREVAzN7JexPbhf41btg8pv34eBTrA==",
+      "type": "package",
+      "path": "mysqlconnector/2.1.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net45/MySqlConnector.dll",
+        "lib/net45/MySqlConnector.xml",
+        "lib/net461/MySqlConnector.dll",
+        "lib/net461/MySqlConnector.xml",
+        "lib/net471/MySqlConnector.dll",
+        "lib/net471/MySqlConnector.xml",
+        "lib/net5.0/MySqlConnector.dll",
+        "lib/net5.0/MySqlConnector.xml",
+        "lib/net6.0/MySqlConnector.dll",
+        "lib/net6.0/MySqlConnector.xml",
+        "lib/netcoreapp3.1/MySqlConnector.dll",
+        "lib/netcoreapp3.1/MySqlConnector.xml",
+        "lib/netstandard2.0/MySqlConnector.dll",
+        "lib/netstandard2.0/MySqlConnector.xml",
+        "lib/netstandard2.1/MySqlConnector.dll",
+        "lib/netstandard2.1/MySqlConnector.xml",
+        "logo.png",
+        "mysqlconnector.2.1.10.nupkg.sha512",
+        "mysqlconnector.nuspec"
       ]
     },
     "NETStandard.Library/1.6.1": {
@@ -9647,6 +9685,7 @@
       "Microsoft.EntityFrameworkCore.InMemory >= 6.0.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.5",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.5",
+      "MySqlConnector >= 2.1.10",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -9704,6 +9743,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[6.0.5, )"
+          },
+          "MySqlConnector": {
+            "target": "Package",
+            "version": "[2.1.10, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
