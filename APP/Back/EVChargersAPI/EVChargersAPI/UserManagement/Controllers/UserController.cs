@@ -21,6 +21,12 @@ namespace EVChargersAPI.UserManagement.Controllers
             IEnumerable<User> users = await _userService.GetAll();
             return Ok(users);
         }
+        [HttpPost]
+        public async Task<ActionResult<User>> Add(User user)
+        {
+            User createdUser = await _userService.Create(user);
+            return Ok(createdUser);
+        }
 
     }
 }

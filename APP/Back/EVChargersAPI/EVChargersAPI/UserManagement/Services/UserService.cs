@@ -16,6 +16,14 @@ namespace EVChargersAPI.UserManagement.Services
             _userRepository = userRepository;
         }
 
+        public async Task<User> Create(User item)
+        {
+            item.Id = Guid.NewGuid();
+            User createdUser = _userRepository.Create(item);
+            _userRepository.Save();
+            return createdUser;
+        }
+
         public async Task<IEnumerable<User>> GetAll()
         {
             return await _userRepository.GetAll();

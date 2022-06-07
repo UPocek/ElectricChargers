@@ -13,7 +13,7 @@ namespace Data.Entities
     {
         [Column("id")]
         [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Column("firstName")]
         [JsonPropertyName("firstName")]
