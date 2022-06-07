@@ -1,32 +1,28 @@
 using MySqlConnector;
-
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 public class LoginRepository : ILoginRepository
 {
-    MySqlConnector.MySqlConnectionStringBuilder builder;
+    private readonly SimsContext _context;
 
     public LoginRepository()
     {
-        builder = new MySqlConnectionStringBuilder
-        {
-            Server = "your-server",
-            UserID = "database-user",
-            Password = "P@ssw0rd!",
-            Database = "database-name",
-        };
+        // builder = new MySqlConnectionStringBuilder
+        // {
+        //     Server = "your-server",
+        //     UserID = "database-user",
+        //     Password = "P@ssw0rd!",
+        //     Database = "database-name",
+        // };
+
+        _context = new SimsContext();
     }
-    public async Task InsertUser(User user)
+    public async Task<IEnumerable<User>> InsertUser(User user)
     {
-        using var connection = new MySqlConnection(builder.ConnectionString);
-        await connection.OpenAsync();
-
-        using var command = connection.CreateCommand();
-        command.CommandText = @"SELECT * FROM myuser;";
-
-        using var reader = await command.ExecuteReaderAsync();
-        while (reader.Read())
-        {
-            var email = reader.GetString("email");
-            Console.WriteLine(email);
-        }
+        return await _context.Users.ToListAsync();
     }
 }
