@@ -2,6 +2,7 @@ import 'package:ev_chargers/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/user.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -63,14 +64,20 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  createAccount(BuildContext context) {
+  createAccount(BuildContext context) async {
     if (!areInputsValid(context)) return;
-    createUser();
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+    bool successful = await User.register(firstNameController.text,
+        lastNameController.text, emailController.text, passwordController.text);
+    if (successful) {
+      await remeberThatUserLogedIn();
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+    } else {
+      showError(context, "Username already taken. Try a new one.");
+    }
   }
 
-  createUser() async {
+  remeberThatUserLogedIn() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool("logedIn", true);
   }
@@ -81,29 +88,25 @@ class LoginScreen extends StatelessWidget {
         emailController.text == "" ||
         passwordController.text == "" ||
         passwordController.text == "") {
-      showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const CupertinoAlertDialog(
-              title: Text("Error"), content: Text("Invalide input values"));
-        },
-        barrierDismissible: true,
-      );
+      showError(context, "Invalide input values");
       return false;
     }
     if (passwordController.text != passwordRepeatController.text) {
-      showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const CupertinoAlertDialog(
-              title: Text("Error"),
-              content: Text("Entered passwords don't match"));
-        },
-        barrierDismissible: true,
-      );
+      showError(context, "Entered passwords don't match");
       return false;
     }
     return true;
+  }
+
+  showError(BuildContext context, String message) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+            title: const Text("Error"), content: Text(message));
+      },
+      barrierDismissible: true,
+    );
   }
 }
 

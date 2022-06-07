@@ -14,8 +14,8 @@ class WelcomeEntry {
         " We know pretty damn cool!"
       ]),
       2: const WelcomeEntry("👌", "Not just another ev app", [
-        "Wherever you are we have a charger for you. Also you can choose to make payments in advance to get your electricity even cheaper.",
-        " We know pretty damn cool!"
+        "We're building the most reliable charging app on the market! Working with drivers and companies alike to bring you the",
+        " most accurate data and features you actually need."
       ])
     };
   }

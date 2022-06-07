@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   checkIfUserLogedIn() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      // logedIn = prefs.getBool("logedIn");
+      logedIn = prefs.getBool("logedIn");
     });
   }
 
