@@ -2,6 +2,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("SIMSConection");
+
+builder.services.AddDbContext<SimsContext>(x => x.UseSqlServer(connectionString));
+
 // Cors policy
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>

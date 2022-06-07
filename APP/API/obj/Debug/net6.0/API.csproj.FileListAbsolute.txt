@@ -262,3 +262,14 @@
 /Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll
 /Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
+/Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/bin/Debug/net6.0/MySqlConnector.dll
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.csproj.AssemblyReference.cache
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.GeneratedMSBuildEditorConfig.editorconfig
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.AssemblyInfoInputs.cache
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.AssemblyInfo.cs
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.csproj.CoreCompileInputs.cache
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cache
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.dll
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\refint\API.dll
+G:\FTN\SIMS\ElectricChargers\APP\API\obj\Debug\net6.0\API.pdb
