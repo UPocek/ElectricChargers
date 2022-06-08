@@ -1,25 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/API.csproj": {}
+    "G:\\FTN\\SIMS\\ElectricChargers\\APP\\API\\API.csproj": {}
   },
   "projects": {
-    "/Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/API.csproj": {
+    "G:\\FTN\\SIMS\\ElectricChargers\\APP\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/API.csproj",
+        "projectUniqueName": "G:\\FTN\\SIMS\\ElectricChargers\\APP\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "/Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/API.csproj",
-        "packagesPath": "/Users/urospocek/.nuget/packages/",
-        "outputPath": "/Users/urospocek/Documents/FTN/SIMS/ElectricChargers/APP/API/obj/",
+        "projectPath": "G:\\FTN\\SIMS\\ElectricChargers\\APP\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\urosp\\.nuget\\packages\\",
+        "outputPath": "G:\\FTN\\SIMS\\ElectricChargers\\APP\\API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/urospocek/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\urosp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -56,6 +61,10 @@
               "target": "Package",
               "version": "[6.0.5, )"
             },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.1.10, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
@@ -79,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

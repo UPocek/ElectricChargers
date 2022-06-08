@@ -1,4 +1,7 @@
+
 import 'package:ev_chargers/screens/homepage.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -72,6 +75,7 @@ class LoginScreen extends StatelessWidget {
       await remeberThatUserLogedIn();
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const MyHome()));
+
     } else {
       showError(context, "Username already taken. Try a new one.");
     }
@@ -141,4 +145,3 @@ class MyTextField extends StatelessWidget {
       ),
     );
   }
-}

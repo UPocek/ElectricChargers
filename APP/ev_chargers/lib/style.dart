@@ -4,11 +4,13 @@ const largeTextSize = 28.0;
 const mediumTextSize = 20.0;
 const bodyTextSize = 18.0;
 const miniTextSize = 16.0;
+
 const minimumTextSize = 12.0;
 
 const String fontName = 'Montserrat';
 
 const appBarTextStyle = TextStyle(
+
   fontFamily: fontName,
   fontWeight: FontWeight.w600,
   fontSize: mediumTextSize,
@@ -29,6 +31,7 @@ const titleTextStyle = TextStyle(
   color: Colors.black,
 );
 
+
 const bodyTextStyle = TextStyle(
     fontFamily: fontName,
     fontWeight: FontWeight.w300,
@@ -36,7 +39,9 @@ const bodyTextStyle = TextStyle(
     color: Colors.black,
     height: 1.6);
 
+
 const buttonTextStyle = TextStyle(
+
     fontFamily: fontName,
     fontWeight: FontWeight.w300,
     fontSize: miniTextSize,
@@ -55,3 +60,4 @@ var myElevatedButtonStyle = ButtonStyle(
 var iconTheme = const IconThemeData(
           color: Colors.black,
         );
+

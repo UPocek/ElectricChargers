@@ -12,6 +12,7 @@
           "Microsoft.EntityFrameworkCore.InMemory": "6.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.5",
+          "MySqlConnector": "2.1.10",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {
@@ -1237,6 +1238,14 @@
             "assetType": "runtime",
             "assemblyVersion": "4.0.2.0",
             "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "MySqlConnector/2.1.10": {
+        "runtime": {
+          "lib/net6.0/MySqlConnector.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.10.0"
           }
         }
       },
@@ -2744,6 +2753,13 @@
       "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "MySqlConnector/2.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aVvetx5uRWlfnxXlbybf4t6plnH5IGrXSue8R2ZsBOAH8VfS1GuNYqQ4KREVAzN7JexPbhf41btg8pv34eBTrA==",
+      "path": "mysqlconnector/2.1.10",
+      "hashPath": "mysqlconnector.2.1.10.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",
