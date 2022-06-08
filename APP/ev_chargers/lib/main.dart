@@ -1,7 +1,11 @@
+import 'package:ev_chargers/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/welcome_screen.dart';
+
 import 'screens/homepage.dart';
+
+
 import 'style.dart';
 
 
@@ -43,6 +47,7 @@ class _MyAppState extends State<MyApp> {
       }
       return Colors.black;
     }
+
   return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
