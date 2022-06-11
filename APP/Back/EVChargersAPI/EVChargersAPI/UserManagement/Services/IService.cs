@@ -4,5 +4,6 @@
     {
         Task<IEnumerable<T>> GetAll();
         Task<T> Create(T item);
+
     }
 }

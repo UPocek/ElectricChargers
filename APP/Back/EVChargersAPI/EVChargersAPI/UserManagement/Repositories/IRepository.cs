@@ -4,7 +4,7 @@
     {
         Task<IEnumerable<T>> GetAll();
         T Create(T item);
-
         void Save();
+
     }
 }
