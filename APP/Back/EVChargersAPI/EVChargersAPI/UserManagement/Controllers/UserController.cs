@@ -28,5 +28,16 @@ namespace EVChargersAPI.UserManagement.Controllers
             return Ok(createdUser);
         }
 
+        [HttpGet]
+        [Route("/login")]
+        public async Task<ActionResult<User>> Login(string email, string password)
+        {
+            User loggedUser = await _userService.Login(email, password);
+            if (loggedUser == null)
+                return NotFound();
+            return Ok(loggedUser);
+        }
+
+
     }
 }

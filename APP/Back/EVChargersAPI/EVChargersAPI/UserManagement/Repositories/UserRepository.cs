@@ -7,7 +7,7 @@ namespace EVChargersAPI.UserManagement.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-
+        Task<User> Login(string email, string password);
     }
     public class UserRepository : IUserRepository
     {
@@ -27,6 +27,11 @@ namespace EVChargersAPI.UserManagement.Repositories
         public async Task<IEnumerable<User>> GetAll()
         {
             return await _context.Users.ToListAsync();
+        }
+
+        public async Task<User> Login(string email, string password)
+        {
+            return await _context.Users.Where(x => x.Email == email && x.Password == password).FirstOrDefaultAsync();
         }
 
         public void Save()
