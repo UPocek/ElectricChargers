@@ -5,7 +5,7 @@ namespace EVChargersAPI.UserManagement.Services
 {
     public interface IUserService : IService<User>
     {
-
+        Task<User> Login(string email, string password);
     }
 
     public class UserService : IUserService
@@ -27,6 +27,11 @@ namespace EVChargersAPI.UserManagement.Services
         public async Task<IEnumerable<User>> GetAll()
         {
             return await _userRepository.GetAll();
+        }
+
+        public async Task<User> Login(string email, string password)
+        {
+            return await _userRepository.Login(email, password);
         }
     }
 }
