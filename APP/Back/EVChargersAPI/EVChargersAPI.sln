@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVChargersAPI", "EVChargersAPI\EVChargersAPI.csproj", "{30B5A2FD-7AC0-483A-8952-D098848450A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{AC71A49D-EA0A-4CD5-B099-D607EFB80CB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30B5A2FD-7AC0-483A-8952-D098848450A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B5A2FD-7AC0-483A-8952-D098848450A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30B5A2FD-7AC0-483A-8952-D098848450A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30B5A2FD-7AC0-483A-8952-D098848450A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC71A49D-EA0A-4CD5-B099-D607EFB80CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC71A49D-EA0A-4CD5-B099-D607EFB80CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC71A49D-EA0A-4CD5-B099-D607EFB80CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC71A49D-EA0A-4CD5-B099-D607EFB80CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {92E7D2B3-8F28-4FE2-9202-191F68F07F63}
+	EndGlobalSection
+EndGlobal
