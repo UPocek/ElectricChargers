@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using EVChargersAPI.DTO;
 using EVChargersAPI.UserManagement.Repositories;
 
 namespace EVChargersAPI.UserManagement.Services
@@ -7,15 +8,17 @@ namespace EVChargersAPI.UserManagement.Services
     {
         Task<User> Login(string email, string password);
         Task<User> GetById(Guid id);
-        Task<User> SetBankCard(Guid id, string bankCard);
+        Task<User> SetBankCard(InsertingCreditCardDTO dto);
     }
 
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly ICreditCardRepository _creditCardRepository;
+        public UserService(IUserRepository userRepository, ICreditCardRepository creditCardRepository)
         {
             _userRepository = userRepository;
+            _creditCardRepository = creditCardRepository;
         }
 
         public async Task<User> Create(User item)
@@ -41,14 +44,27 @@ namespace EVChargersAPI.UserManagement.Services
             return await _userRepository.Login(email, password);
         }
 
-        public async Task<User> SetBankCard(Guid id, string bankCard)
+        public async Task<User> SetBankCard(InsertingCreditCardDTO dto)
         {
-            User user = await GetById(id);
+            User user = await GetById(dto.UserId);
             if (user == null) throw new Exception("User not found");
-            user.BankCard = bankCard;
-            _ = _userRepository.Update(user);
+            CreditCard creditCard = new CreditCard
+            {
+                Id = Guid.NewGuid(),
+                CardHolderName = dto.CardHolderName,
+                CardNumber = dto.CardNumber,
+                CvvCode = dto.CvvCode,
+                ExpiryDate = dto.ExpiryDate
+            };
+
+            _creditCardRepository.Create(creditCard);
+            _creditCardRepository.Save();
+
+            user.CardId = creditCard.Id;
+            User updatedUser = _userRepository.Update(user);
             _userRepository.Save();
-            return user;
+              
+            return updatedUser;
         }
     }
 }

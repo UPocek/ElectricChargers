@@ -69,9 +69,9 @@ class RegistrationScreen extends StatelessWidget {
 
   createAccount(BuildContext context) async {
     if (!areInputsValid(context)) return;
-    int id = await User.register(firstNameController.text,
+    String id = await User.register(firstNameController.text,
         lastNameController.text, emailController.text, passwordController.text);
-    if (id != -1) {
+    if (id != "") {
       await remeberThatUserLogedIn(id);
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const CreditCardScreen()));
@@ -80,11 +80,10 @@ class RegistrationScreen extends StatelessWidget {
     }
   }
 
-  remeberThatUserLogedIn(int id) async {
+  remeberThatUserLogedIn(String id) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool("loggedIn", true);
-    await prefs.setInt("userId", id);
-    userId = id;
+    await prefs.setString("userId", id);
   }
 
   bool areInputsValid(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/user.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -8,18 +9,67 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  double? accountBalance;
+
+  @override
+  void initState() {
+    super.initState();
+    getAccountBalance();
+  }
+
+  getAccountBalance() async {
+    setState(() {
+      // accountBalance = await User.getBalance();
+      accountBalance = 0.0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+        body: Column(
       children: [
-        Center(
-          child: Text(
-            "This is Profile Screen",
-            style: TextStyle(fontSize: 24),
-          ),
-        )
+        MapWindow(),
+        BalanceWindow(),
+        LastFiveWindow(),
+        StatisticWindow(),
       ],
-    );
+    ));
+  }
+}
+
+class MapWindow extends StatelessWidget {
+  const MapWindow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class BalanceWindow extends StatelessWidget {
+  const BalanceWindow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class LastFiveWindow extends StatelessWidget {
+  const LastFiveWindow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class StatisticWindow extends StatelessWidget {
+  const StatisticWindow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

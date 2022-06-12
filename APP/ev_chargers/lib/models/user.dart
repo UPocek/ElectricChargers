@@ -1,20 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:ev_chargers/models/credit_card.dart';
 import 'package:http/io_client.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../helper.dart';
+
+
 class User {
+  final String id;
   final String firstName;
   final String lastName;
   final String email;
   final String password;
-  static const url = 'https://localhost:7222/api';
+  static const url = 'https://localhost:7234/api';
 
-  User(this.firstName, this.lastName, this.email, this.password);
+  User(this.id, this.firstName, this.lastName, this.email, this.password);
 
-  static Future<int> register(
+  static Future<String> register(
       String firstName, String lastname, String email, String password) async {
     bool trustSelfSigned = true;
     HttpClient httpClient = HttpClient()
@@ -38,13 +43,14 @@ class User {
     );
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
-      return jsonDecode(response.body)["Id"];
+      user = jsonDecode(response.body);
+      return jsonDecode(response.body)["id"];
     } else {
-      return -1;
+      return "";
     }
   }
 
-  static Future<bool> registerCard(int? userId, CreditCard card) async {
+  static Future<bool> registerCard(String? userId, CreditCard card) async {
     bool trustSelfSigned = true;
     HttpClient httpClient = HttpClient()
       ..badCertificateCallback =
@@ -52,7 +58,7 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.put(
-      Uri.parse('$url/bankCard'),
+      Uri.parse('$url/user/bankCard'),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
@@ -91,5 +97,18 @@ class User {
   static logOut() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove("loggedIn");
+  }
+
+  static Future getData(String? userId) async {
+    if (userId != null) {
+      var response = await http.get(Uri.parse('$url/user/getbyId/$userId'));
+      user = jsonDecode(response.body);
+    }
+  }
+
+  static Future<double> getBalance() async {
+    var response = await http.get(Uri.parse('$url/user/accountBalance'));
+    return jsonDecode(response.body);
+
   }
 }

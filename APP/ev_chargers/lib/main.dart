@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/welcome_screen.dart';
 import 'style.dart';
 import 'helper.dart';
+import 'models/user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,10 +28,7 @@ class _MyAppState extends State<MyApp> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       loggedIn = prefs.getBool('loggedIn');
-      userId = prefs.getInt('userId');
-      // OnlyTest
-      loggedIn = true;
-      userId = 1;
+      User.getData(prefs.getString('userId'));
     });
   }
 

@@ -1,2 +1,4 @@
+import 'models/user.dart';
+
 bool? loggedIn;
-int? userId;
+User? user;
