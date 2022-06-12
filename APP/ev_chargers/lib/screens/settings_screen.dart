@@ -1,3 +1,4 @@
+import 'package:ev_chargers/screens/current_account.dart';
 import 'package:ev_chargers/style.dart';
 import 'package:flutter/material.dart';
 import 'package:ev_chargers/screens/change_password_screen.dart';
@@ -83,7 +84,7 @@ class CardItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ChangePasswordScreen(),
+            builder: (context) => const CurrentAccount(),
           ),
         );
       }),

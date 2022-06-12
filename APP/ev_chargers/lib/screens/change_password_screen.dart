@@ -17,7 +17,7 @@ class ChangePasswordScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 5,
         toolbarHeight: 80,
-        title: const Text("Personal"),
+        title: const Text("Update"),
         titleTextStyle: titleTextStyle,
         backgroundColor: Colors.white,
       ),
