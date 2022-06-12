@@ -24,9 +24,9 @@ namespace EVChargersAPI.UserManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Add(User user)
+        public async Task<ActionResult<User>> Create(CreateUserDTO dto)
         {
-            User createdUser = await _userService.Create(user);
+            User createdUser = await _userService.Create(dto);
             return Ok(createdUser);
         }
 
