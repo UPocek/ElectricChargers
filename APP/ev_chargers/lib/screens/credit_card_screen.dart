@@ -2,13 +2,13 @@ import 'package:ev_chargers/models/credit_card.dart';
 import 'package:ev_chargers/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
-import 'package:flutter_credit_card/credit_card_form.dart';
-import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import '../models/user.dart';
 import '../helper.dart';
 
 class CreditCardScreen extends StatefulWidget {
+  const CreditCardScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return CreditCardScreenState();
@@ -148,9 +148,7 @@ class CreditCardScreenState extends State<CreditCardScreen> {
 
   registerCard() async {
     if (await User.registerCard(
-      userId,
-      CreditCard(cardNumber, expiryDate, cardHolderName, cvvCode),
-    )) {
+        userId, CreditCard(cardNumber, expiryDate, cardHolderName, cvvCode))) {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
     }
