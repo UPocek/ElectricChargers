@@ -21,6 +21,7 @@ namespace EVChargersAPI.UserManagement.Controllers
             IEnumerable<User> users = await _userService.GetAll();
             return Ok(users);
         }
+
         [HttpPost]
         public async Task<ActionResult<User>> Add(User user)
         {
@@ -38,6 +39,30 @@ namespace EVChargersAPI.UserManagement.Controllers
             return Ok(loggedUser);
         }
 
+        [HttpGet]
+        [Route("/getbyId")]
+        public async Task<ActionResult<User>> GetById(Guid id)
+        {
+            User user = await _userService.GetById(id);
+            if (user == null)
+                return NotFound();
+            return Ok(user);
+        }
 
-    }
+        [HttpPut]
+        [Route("/bankCard")]
+        public async Task<ActionResult<User>> SetBankCard(Guid id, string bankCard)
+        {
+            User user;
+            try
+            {
+                user = await _userService.SetBankCard(id, bankCard);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+    } 
 }
