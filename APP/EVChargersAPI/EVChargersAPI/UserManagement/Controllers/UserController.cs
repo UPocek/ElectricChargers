@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using EVChargersAPI.DTO;
 using EVChargersAPI.UserManagement.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,12 +52,12 @@ namespace EVChargersAPI.UserManagement.Controllers
 
         [HttpPut]
         [Route("/bankCard")]
-        public async Task<ActionResult<User>> SetBankCard(Guid id, string bankCard)
+        public async Task<ActionResult<User>> SetBankCard(InsertingCreditCardDTO dto)
         {
             User user;
             try
             {
-                user = await _userService.SetBankCard(id, bankCard);
+                user = await _userService.SetBankCard(dto);
             }
             catch (Exception)
             {

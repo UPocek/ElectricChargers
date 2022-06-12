@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Payment\Controllers\" />
+    <Folder Include="Payment\Services\" />
+    <Folder Include="Payment\Repositories\" />
+  </ItemGroup>
+
 </Project>

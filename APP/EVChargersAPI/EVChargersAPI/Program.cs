@@ -17,6 +17,8 @@ builder.Services.AddSwaggerGen();
 
 //Repositories
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<ICreditCardRepository, CreditCardRepository>();
+
 
 
 //Services
