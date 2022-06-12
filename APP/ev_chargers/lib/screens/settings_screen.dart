@@ -1,4 +1,5 @@
 import 'package:ev_chargers/screens/current_account.dart';
+import 'package:ev_chargers/screens/login_screen.dart';
 import 'package:ev_chargers/style.dart';
 import 'package:ev_chargers/widgets/action_button.dart';
 import 'package:ev_chargers/widgets/padding_card.dart';
@@ -36,7 +37,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           CardItem(Icons.key_outlined, "App Premission"),
           CardItem(Icons.help_outline, "App information"),
         ])),
-        ActionButton("Log out", (() => {User.logOut()})),
+        ActionButton(
+            "Log out",
+            (() => {
+                  User.logOut(),
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => LogInScreen())))
+                })),
       ]),
     );
   }
