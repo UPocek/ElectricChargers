@@ -11,6 +11,7 @@ namespace EVChargersAPI.UserManagement.Services
         Task<User> SetBankCard(InsertingCreditCardDTO dto);
         Task<User> Create(CreateUserDTO dto);
         Task<User> ChangePassword(Guid id, string newPassword);
+        Task<User> AddCash(Guid id, decimal amount);
     }
 
     public class UserService : IUserService
@@ -21,6 +22,16 @@ namespace EVChargersAPI.UserManagement.Services
         {
             _userRepository = userRepository;
             _creditCardRepository = creditCardRepository;
+        }
+
+        public async Task<User> AddCash(Guid id, decimal amount)
+        {
+            User user = await GetById(id);
+            if (user == null) throw new Exception("User not found");
+            user.AccountBalance += amount;
+            User updatedUser = _userRepository.Update(user);
+            _userRepository.Save();
+            return updatedUser;
         }
 
         public async Task<User> ChangePassword(Guid id, string newPassword)
