@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ev_chargers/models/credit_card.dart';
 import 'package:http/io_client.dart';
 
 class User {
@@ -8,8 +9,9 @@ class User {
   final String lastName;
   final String email;
   final String password;
+  static const url = 'https://localhost:7222/api';
 
-  static var url = Uri.parse('https://localhost:7222/api/user');
+  User(this.firstName, this.lastName, this.email, this.password);
 
   static Future<int> register(
       String firstName, String lastname, String email, String password) async {
@@ -20,7 +22,7 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.post(
-      url,
+      Uri.parse('$url/user'),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
@@ -41,5 +43,28 @@ class User {
     }
   }
 
-  User(this.firstName, this.lastName, this.email, this.password);
+  static Future<bool> registerCard(int? userId, CreditCard card) async {
+    bool trustSelfSigned = true;
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+    IOClient ioClient = IOClient(httpClient);
+
+    var response = await ioClient.put(
+      Uri.parse('$url/bankCard'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: json.encode(
+        {
+          'userId': userId,
+          'cardNumber': card.cardNumber,
+          'expiryDate': card.expiryDate,
+          'cvvCode': card.cvvCode,
+          'cardHolderName': card.cardHolderName
+        },
+      ),
+    );
+    return response.statusCode == 200;
+  }
 }
