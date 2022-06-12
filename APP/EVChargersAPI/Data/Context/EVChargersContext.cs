@@ -11,6 +11,7 @@ namespace Data.Context
     public class EVChargersContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<CreditCard> CreditCards { get; set; }
 
         public EVChargersContext(DbContextOptions options) : base(options)
         {
@@ -22,6 +23,7 @@ namespace Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>().HasKey(x => x.Id);
+            modelBuilder.Entity<CreditCard>().HasKey(x => x.Id);
         }
     }
 }

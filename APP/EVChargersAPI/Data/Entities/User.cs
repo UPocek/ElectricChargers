@@ -31,10 +31,9 @@ namespace Data.Entities
         [JsonPropertyName("password")]
         public string Password { get; set; }
 
-        [Column("bankCard")]
-        [JsonPropertyName("bankCard")]
-        public string? BankCard { get; set; }
-
+        [Column("cardId")]
+        [JsonPropertyName("cardId")]
+        public Guid? CardId { get; set; }
 
     }
 }
