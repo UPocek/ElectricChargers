@@ -47,7 +47,7 @@ class HomeScreenState extends State<HomeScreen>
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          boxShadow: <BoxShadow>[
+          boxShadow: [
             BoxShadow(color: Colors.white, blurStyle: BlurStyle.inner),
           ],
         ),

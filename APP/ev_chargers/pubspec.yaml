@@ -37,6 +37,7 @@ dependencies:
   shared_preferences: ^2.0.15
   http: ^0.13.4
   flutter_credit_card: ^3.0.1
+  google_maps_flutter: ^2.1.7
 
 dev_dependencies:
   flutter_test:
