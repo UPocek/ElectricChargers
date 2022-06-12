@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+import 'package:ev_chargers/widgets/action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../models/user.dart';
 import '../widgets/big_text_field.dart';
 import '../style.dart';
+import '../helper.dart';
+import 'package:http/http.dart' as http;
 
 class ChangePasswordScreen extends StatelessWidget {
   ChangePasswordScreen({Key? key}) : super(key: key);
@@ -17,7 +23,7 @@ class ChangePasswordScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 5,
         toolbarHeight: 80,
-        title: const Text("Personal"),
+        title: const Text("Update"),
         titleTextStyle: titleTextStyle,
         backgroundColor: Colors.white,
       ),
@@ -48,8 +54,9 @@ class ChangePasswordScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    ElevatedButton(
-                        onPressed: (() => {
+                    ActionButton(
+                        "Change",
+                        () async => {
                               if (passwordController.text == "" ||
                                   passwordRepeatController.text == "")
                                 {
@@ -70,6 +77,8 @@ class ChangePasswordScreen extends StatelessWidget {
                                 }
                               else
                                 {
+                                  await User.updatePassword(
+                                      passwordController.text),
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content:
@@ -79,7 +88,6 @@ class ChangePasswordScreen extends StatelessWidget {
                                 },
                               Navigator.of(context).pop(context)
                             }),
-                        child: const Text("Change"))
                   ],
                 ),
               ),
@@ -87,42 +95,6 @@ class ChangePasswordScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  bool areInputsValid(BuildContext context) {
-    if (passwordController.text == "" || passwordController.text == "") {
-      showError(context, "Invalide input values");
-      return false;
-    }
-    if (passwordController.text != passwordRepeatController.text) {
-      showError(context, "Entered passwords don't match");
-      return false;
-    }
-    return true;
-  }
-
-  showError(BuildContext context, String message) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-            title: const Text("Error"), content: Text(message));
-      },
-      barrierDismissible: true,
-    );
-  }
-
-  showSuccess(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const CupertinoAlertDialog(
-          title: Text("Success"),
-          content: Text("Successfuly changed password"),
-        );
-      },
-      barrierDismissible: true,
     );
   }
 }

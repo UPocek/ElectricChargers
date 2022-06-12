@@ -50,11 +50,10 @@ var mainColorScheme = ColorScheme.fromSwatch(
 );
 
 var myElevatedButtonStyle = ButtonStyle(
-  padding: MaterialStateProperty.all<EdgeInsets>(
-    const EdgeInsets.fromLTRB(28.0, 15.0, 28.0, 15.0),
-  ),
-  textStyle: MaterialStateProperty.all(buttonTextStyle),
-);
+    padding: MaterialStateProperty.all<EdgeInsets>(
+      const EdgeInsets.fromLTRB(28.0, 15.0, 28.0, 15.0),
+    ),
+    textStyle: MaterialStateProperty.all(buttonTextStyle));
 
 var myIconTheme = const IconThemeData(
   color: Colors.black,
