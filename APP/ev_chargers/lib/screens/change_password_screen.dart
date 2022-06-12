@@ -1,18 +1,9 @@
-
-import 'package:ev_chargers/screens/homepage.dart';
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../models/user.dart';
+import 'package:flutter/cupertino.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class ChangePasswordScreen extends StatelessWidget {
+  ChangePasswordScreen({Key? key}) : super(key: key);
 
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordRepeatController =
       TextEditingController();
@@ -28,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Tell us how you are ⚡️",
+                "Change your password",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               const SizedBox(
@@ -38,12 +29,6 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(
                   children: [
-                    MyTextField(firstNameController, TextInputType.name,
-                        "First name*", false),
-                    MyTextField(lastNameController, TextInputType.text,
-                        "Last name*", false),
-                    MyTextField(emailController, TextInputType.emailAddress,
-                        "Email*", false),
                     MyTextField(passwordController,
                         TextInputType.visiblePassword, "Password*", true),
                     MyTextField(
@@ -55,8 +40,24 @@ class LoginScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     ElevatedButton(
-                        onPressed: (() => createAccount(context)),
-                        child: const Text("Submit"))
+                        onPressed: (() => {
+                          if (passwordController.text == "" || passwordController.text == "") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Invalide input values"))),
+                          }else if (passwordController.text != passwordRepeatController.text) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Passwords don't match"))),
+                          }
+                          else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Successfuly changed password")))
+                          },
+                           Navigator.of(context).pop(context)
+                          }
+                  ),
+                         
+                          
+                        child: const Text("Change"))
                   ],
                 ),
               ),
@@ -67,47 +68,35 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  createAccount(BuildContext context) async {
-    if (!areInputsValid(context)) return;
-    bool successful = await User.register(firstNameController.text,
-        lastNameController.text, emailController.text, passwordController.text);
-    if (successful) {
-      await remeberThatUserLogedIn();
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const MyHome()));
-
-    } else {
-      showError(context, "Username already taken. Try a new one.");
-    }
-  }
-
-  remeberThatUserLogedIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("logedIn", true);
-  }
-
   bool areInputsValid(BuildContext context) {
-    if (firstNameController.text == "" ||
-        lastNameController.text == "" ||
-        emailController.text == "" ||
-        passwordController.text == "" ||
-        passwordController.text == "") {
-      showError(context, "Invalide input values");
-      return false;
+      if (passwordController.text == "" ||
+          passwordController.text == "") {
+        showError(context, "Invalide input values");
+        return false;
+      }
+      if (passwordController.text != passwordRepeatController.text) {
+        showError(context, "Entered passwords don't match");
+        return false;
+      }
+      return true;
     }
-    if (passwordController.text != passwordRepeatController.text) {
-      showError(context, "Entered passwords don't match");
-      return false;
-    }
-    return true;
-  }
 
-  showError(BuildContext context, String message) {
+    showError(BuildContext context, String message) {
     showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
             title: const Text("Error"), content: Text(message));
+      },
+      barrierDismissible: true,
+    );}
+
+    showSuccess(BuildContext context ) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const CupertinoAlertDialog(
+            title: Text("Success"), content: Text("Successfuly changed password"));
       },
       barrierDismissible: true,
     );
@@ -145,3 +134,4 @@ class MyTextField extends StatelessWidget {
       ),
     );
   }
+}

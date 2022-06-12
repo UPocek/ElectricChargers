@@ -34,4 +34,4 @@ class User {
   }
 
   User(this.firstName, this.lastName, this.email, this.password);
-}
+

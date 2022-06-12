@@ -5,41 +5,59 @@ const mediumTextSize = 20.0;
 const bodyTextSize = 18.0;
 const miniTextSize = 16.0;
 
+const minimumTextSize = 12.0;
+
 const String fontName = 'Montserrat';
 
-const AppBarTextStyle = TextStyle(
+const appBarTextStyle = TextStyle(
+
   fontFamily: fontName,
   fontWeight: FontWeight.w600,
   fontSize: mediumTextSize,
   color: Colors.white,
 );
 
-const TitleTextStyle = TextStyle(
+const navBarTextStyle = TextStyle(
+  fontFamily: fontName,
+  fontWeight: FontWeight.w600,
+  fontSize: minimumTextSize,
+  color: Colors.black,
+);
+
+const titleTextStyle = TextStyle(
   fontFamily: fontName,
   fontWeight: FontWeight.w600,
   fontSize: largeTextSize,
   color: Colors.black,
 );
 
-const BodyTextStyle = TextStyle(
+
+const bodyTextStyle = TextStyle(
     fontFamily: fontName,
     fontWeight: FontWeight.w300,
     fontSize: bodyTextSize,
     color: Colors.black,
     height: 1.6);
 
-const ButtonTextStyle = TextStyle(
+
+const buttonTextStyle = TextStyle(
+
     fontFamily: fontName,
     fontWeight: FontWeight.w300,
     fontSize: miniTextSize,
     color: Colors.black,
     height: 1.6);
 
-var MainColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.amber);
+var mainColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.pink);
 
-var MyElevatedButtonStyle = ButtonStyle(
+var myElevatedButtonStyle = ButtonStyle(
   padding: MaterialStateProperty.all<EdgeInsets>(
     const EdgeInsets.fromLTRB(28.0, 15.0, 28.0, 15.0),
   ),
-  textStyle: MaterialStateProperty.all(ButtonTextStyle),
+  textStyle: MaterialStateProperty.all(buttonTextStyle),
 );
+
+var iconTheme = const IconThemeData(
+          color: Colors.black,
+        );
+
