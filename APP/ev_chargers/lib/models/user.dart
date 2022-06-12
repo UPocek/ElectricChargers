@@ -9,7 +9,7 @@ class User {
   final String lastName;
   final String email;
   final String password;
-  static const url = 'https://localhost:7222/api';
+  static const url = 'https://localhost:7234/api';
 
   User(this.firstName, this.lastName, this.email, this.password);
 
