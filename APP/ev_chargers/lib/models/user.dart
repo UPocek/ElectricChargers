@@ -30,16 +30,19 @@ class User {
       },
       body: json.encode(
         {
+          'id': null,
           'firstName': firstName,
           'lastName': lastname,
           'email': email,
-          'password': password
+          'password': password,
+          'cardId': null
         },
       ),
     );
     if (response.statusCode == 200) {
-      print(jsonDecode(response.body));
-      user = jsonDecode(response.body);
+      var userData = jsonDecode(response.body);
+      user = User(userData['id'], userData['firstName'], userData['lastName'],
+          userData['email'], userData['password']);
       return jsonDecode(response.body)["id"];
     } else {
       return "";
@@ -68,6 +71,7 @@ class User {
         },
       ),
     );
+    print(response.statusCode);
     return response.statusCode == 200;
   }
 
