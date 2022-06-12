@@ -20,6 +20,7 @@ namespace Data.Context
         public DbSet<Station> Stations { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UsersCars> UsersCars { get; set; }
 
         public EVChargersContext(DbContextOptions options) : base(options)
         {
@@ -40,6 +41,7 @@ namespace Data.Context
             modelBuilder.Entity<Station>().HasKey(x => x.Id);
             modelBuilder.Entity<Transaction>().HasKey(x => new {x.StationId, x.PersonId, x.TransactionDate});
             modelBuilder.Entity<User>().HasKey(x => x.Id);
+            modelBuilder.Entity<UsersCars>().HasKey(x => x.Id);
         }
     }
 }
