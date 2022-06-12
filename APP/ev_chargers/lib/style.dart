@@ -10,7 +10,6 @@ const minimumTextSize = 12.0;
 const String fontName = 'Montserrat';
 
 const appBarTextStyle = TextStyle(
-
   fontFamily: fontName,
   fontWeight: FontWeight.w600,
   fontSize: mediumTextSize,
@@ -31,24 +30,24 @@ const titleTextStyle = TextStyle(
   color: Colors.black,
 );
 
-
 const bodyTextStyle = TextStyle(
     fontFamily: fontName,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w400,
     fontSize: bodyTextSize,
     color: Colors.black,
     height: 1.6);
 
-
 const buttonTextStyle = TextStyle(
-
     fontFamily: fontName,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w500,
     fontSize: miniTextSize,
     color: Colors.black,
     height: 1.6);
 
-var mainColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.pink);
+var mainColorScheme = ColorScheme.fromSwatch(
+  primarySwatch: Colors.amber,
+  accentColor: Colors.amber,
+);
 
 var myElevatedButtonStyle = ButtonStyle(
   padding: MaterialStateProperty.all<EdgeInsets>(
@@ -57,7 +56,20 @@ var myElevatedButtonStyle = ButtonStyle(
   textStyle: MaterialStateProperty.all(buttonTextStyle),
 );
 
-var iconTheme = const IconThemeData(
-          color: Colors.black,
-        );
+var myIconTheme = const IconThemeData(
+  color: Colors.black,
+);
 
+var myTabBarTheme = TabBarTheme(
+  labelColor: Colors.white,
+  labelStyle: navBarTextStyle,
+  unselectedLabelColor: navBarTextStyle.color,
+  indicator: BoxDecoration(
+    borderRadius: BorderRadius.circular(6),
+    color: Colors.amber,
+  ),
+);
+
+var iconTheme = const IconThemeData(
+  color: Colors.black,
+);

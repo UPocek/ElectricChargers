@@ -1,14 +1,14 @@
-
-import 'package:ev_chargers/screens/homepage.dart';
-
+import 'package:ev_chargers/screens/home_screen.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
+import '../helper.dart';
+import '../widgets/big_text_field.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class RegistrationScreen extends StatelessWidget {
+  RegistrationScreen({Key? key}) : super(key: key);
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -38,15 +38,15 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(
                   children: [
-                    MyTextField(firstNameController, TextInputType.name,
+                    BigTextField(firstNameController, TextInputType.name,
                         "First name*", false),
-                    MyTextField(lastNameController, TextInputType.text,
+                    BigTextField(lastNameController, TextInputType.text,
                         "Last name*", false),
-                    MyTextField(emailController, TextInputType.emailAddress,
+                    BigTextField(emailController, TextInputType.emailAddress,
                         "Email*", false),
-                    MyTextField(passwordController,
+                    BigTextField(passwordController,
                         TextInputType.visiblePassword, "Password*", true),
-                    MyTextField(
+                    BigTextField(
                         passwordRepeatController,
                         TextInputType.visiblePassword,
                         "Repeat password*",
@@ -55,8 +55,9 @@ class LoginScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     ElevatedButton(
-                        onPressed: (() => createAccount(context)),
-                        child: const Text("Submit"))
+                      onPressed: (() => createAccount(context)),
+                      child: const Text("Submit"),
+                    )
                   ],
                 ),
               ),
@@ -69,21 +70,22 @@ class LoginScreen extends StatelessWidget {
 
   createAccount(BuildContext context) async {
     if (!areInputsValid(context)) return;
-    bool successful = await User.register(firstNameController.text,
+    int id = await User.register(firstNameController.text,
         lastNameController.text, emailController.text, passwordController.text);
-    if (successful) {
-      await remeberThatUserLogedIn();
+    if (id != -1) {
+      await remeberThatUserLogedIn(id);
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const MyHome()));
-
+          .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
     } else {
       showError(context, "Username already taken. Try a new one.");
     }
   }
 
-  remeberThatUserLogedIn() async {
+  remeberThatUserLogedIn(int id) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("logedIn", true);
+    await prefs.setBool("loggedIn", true);
+    await prefs.setInt("userId", id);
+    userId = id;
   }
 
   bool areInputsValid(BuildContext context) {
@@ -107,41 +109,11 @@ class LoginScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-            title: const Text("Error"), content: Text(message));
+          title: const Text("Error"),
+          content: Text(message),
+        );
       },
       barrierDismissible: true,
     );
   }
 }
-
-class MyTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final TextInputType keyboard;
-  final String hintText;
-  final bool obscureText;
-
-  const MyTextField(
-      this.controller, this.keyboard, this.hintText, this.obscureText,
-      {Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
-      child: TextField(
-        controller: controller,
-        keyboardType: keyboard,
-        obscureText: obscureText,
-        style: Theme.of(context).textTheme.bodyText1,
-        decoration: InputDecoration(
-          labelText: hintText,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-        ),
-      ),
-    );
-  }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
+import 'registration_screen.dart';
 import '../models/welcome_entry.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -11,22 +11,25 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = WelcomeEntry.getWelcomeData(index);
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: (() => loadNextScreen(context)),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() => loadNextScreen(context)),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
           ),
-          child: const Icon(Icons.keyboard_arrow_right),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            MyEmoji(data.emoji),
-            WelcomeCard(data.title, data.body),
-          ],
-        ));
+        child: const Icon(Icons.keyboard_arrow_right),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CentralEmoji(data.emoji),
+          WelcomeCard(data.title, data.body),
+        ],
+      ),
+    );
   }
 
   loadNextScreen(BuildContext context) {
@@ -36,16 +39,16 @@ class WelcomeScreen extends StatelessWidget {
       ));
     } else {
       Navigator.of(context).push(MaterialPageRoute(
-        builder: ((context) => LoginScreen()),
+        builder: ((context) => RegistrationScreen()),
       ));
     }
   }
 }
 
-class MyEmoji extends StatelessWidget {
+class CentralEmoji extends StatelessWidget {
   final String emoji;
 
-  const MyEmoji(this.emoji, {Key? key}) : super(key: key);
+  const CentralEmoji(this.emoji, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,4 +106,4 @@ class WelcomeCard extends StatelessWidget {
       ),
     );
   }
-
+}
