@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Entities
 {
+    [Table("Charger")]
     public class Charger
     {
         [Column("id")]
@@ -32,7 +33,7 @@ namespace Data.Entities
 
         [Column("station")]
         [JsonPropertyName("station")]
-        public Guid Station { get; set; }
+        public Guid StationId { get; set; }
 
         [Column("rfid")]
         [JsonPropertyName("rfid")]

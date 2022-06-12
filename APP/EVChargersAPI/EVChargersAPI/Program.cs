@@ -1,6 +1,8 @@
 using Data.Context;
 using EVChargersAPI.CarManagement.Repositories;
 using EVChargersAPI.CarManagement.Services;
+using EVChargersAPI.StationManagement.Repositories;
+using EVChargersAPI.StationManagement.Services;
 using EVChargersAPI.UserManagement.Repositories;
 using EVChargersAPI.UserManagement.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +23,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ICreditCardRepository, CreditCardRepository>();
 builder.Services.AddTransient<ICarRepository, CarRepository>();
+builder.Services.AddTransient<IStationRepository, StationRepository>();
+builder.Services.AddTransient<IChargerRepository, ChargerRepository>();
 
 
 
 //Services
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICarService, CarService>();
+builder.Services.AddTransient<IStationService, StationService>();
+builder.Services.AddTransient<IChargerService, ChargerService>();
 
 //Cors
 builder.Services.AddCors(feature =>
