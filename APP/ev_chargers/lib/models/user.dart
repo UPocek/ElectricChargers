@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:ev_chargers/models/credit_card.dart';
 import 'package:http/io_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../helper.dart';
 
 class User {
@@ -73,6 +74,30 @@ class User {
     return response.statusCode == 200;
   }
 
+  static Future<bool> updatePassword(String password) async {
+    bool trustSelfSigned = true;
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+    IOClient ioClient = IOClient(httpClient);
+
+    var response = await ioClient.put(
+      Uri.parse('$url/password'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: json.encode(
+        {'password': password},
+      ),
+    );
+    return response.statusCode == 200;
+  }
+
+  static logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("loggedIn");
+  }
+
   static Future getData(String? userId) async {
     bool trustSelfSigned = true;
     HttpClient httpClient = HttpClient()
@@ -87,7 +112,6 @@ class User {
       },
     );
     var userData = jsonDecode(response.body);
-    print(userData);
     user = User(userData['id'], userData['firstName'], userData['lastName'],
         userData['email'], userData['password'], userData['accountBalance']);
   }
