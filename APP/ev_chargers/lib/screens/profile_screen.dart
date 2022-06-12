@@ -1,3 +1,4 @@
+import 'package:ev_chargers/helper.dart';
 import 'package:flutter/material.dart';
 import '../models/user.dart';
 
@@ -19,8 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   getAccountBalance() async {
     setState(() {
-      // accountBalance = await User.getBalance();
-      accountBalance = 0.0;
+      accountBalance = user?.accountBalance;
     });
   }
 
