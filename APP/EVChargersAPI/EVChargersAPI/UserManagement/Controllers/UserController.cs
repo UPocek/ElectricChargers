@@ -31,7 +31,7 @@ namespace EVChargersAPI.UserManagement.Controllers
         }
 
         [HttpGet]
-        [Route("/login")]
+        [Route("login")]
         public async Task<ActionResult<User>> Login(string email, string password)
         {
             User loggedUser = await _userService.Login(email, password);
@@ -41,7 +41,7 @@ namespace EVChargersAPI.UserManagement.Controllers
         }
 
         [HttpGet]
-        [Route("/getbyId")]
+        [Route("getbyId")]
         public async Task<ActionResult<User>> GetById(Guid id)
         {
             User user = await _userService.GetById(id);
@@ -51,7 +51,7 @@ namespace EVChargersAPI.UserManagement.Controllers
         }
 
         [HttpPut]
-        [Route("/bankCard")]
+        [Route("bankCard")]
         public async Task<ActionResult<User>> SetBankCard(InsertingCreditCardDTO dto)
         {
             User user;
