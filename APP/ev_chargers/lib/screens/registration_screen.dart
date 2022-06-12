@@ -1,4 +1,3 @@
-import 'package:ev_chargers/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,8 +73,8 @@ class RegistrationScreen extends StatelessWidget {
         lastNameController.text, emailController.text, passwordController.text);
     if (id != -1) {
       await remeberThatUserLogedIn(id);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => CreditCardScreen()));
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const CreditCardScreen()));
     } else {
       showError(context, "Username already taken. Try a new one.");
     }
