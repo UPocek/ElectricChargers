@@ -26,7 +26,15 @@ namespace EVChargersAPI.UserManagement.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Create(CreateUserDTO dto)
         {
-            User createdUser = await _userService.Create(dto);
+            User createdUser;
+            try
+            {
+                createdUser = await _userService.Create(dto);
+            }
+            catch (Exception)
+            {
+                return BadRequest("User with entered email already exist.");
+            }
             return Ok(createdUser);
         }
 
