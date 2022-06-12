@@ -31,6 +31,10 @@ namespace Data.Entities
         [JsonPropertyName("password")]
         public string Password { get; set; }
 
+        [Column("accountBalance")]
+        [JsonPropertyName("accountBalance")]
+        public decimal AccountBalance { get; set; }
+
         [Column("cardId")]
         [JsonPropertyName("cardId")]
         public Guid? CardId { get; set; }

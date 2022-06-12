@@ -9,6 +9,8 @@ namespace EVChargersAPI.UserManagement.Services
         Task<User> Login(string email, string password);
         Task<User> GetById(Guid id);
         Task<User> SetBankCard(InsertingCreditCardDTO dto);
+        Task<User> Create(CreateUserDTO dto);
+
     }
 
     public class UserService : IUserService
@@ -21,10 +23,20 @@ namespace EVChargersAPI.UserManagement.Services
             _creditCardRepository = creditCardRepository;
         }
 
-        public async Task<User> Create(User item)
+        public async Task<User> Create(CreateUserDTO dto)
         {
-            item.Id = Guid.NewGuid();
-            User createdUser = _userRepository.Create(item);
+            User user = new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                Password = dto.Password,
+                AccountBalance = 0,
+                CardId = null
+
+            };
+            User createdUser = _userRepository.Create(user);
             _userRepository.Save();
             return createdUser;
         }
