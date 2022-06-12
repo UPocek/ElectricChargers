@@ -12,17 +12,17 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   double? accountBalance;
 
-  @override
-  void initState() {
-    super.initState();
-    getAccountBalance();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getAccountBalance();
+  // }
 
-  getAccountBalance() async {
-    setState(() {
-      accountBalance = user?.accountBalance;
-    });
-  }
+  // getAccountBalance() async {
+  //   setState(() {
+  //     accountBalance = user?.accountBalance;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

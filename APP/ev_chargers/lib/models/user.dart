@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:ev_chargers/models/credit_card.dart';
 import 'package:http/io_client.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../helper.dart';
 
 class User {
@@ -11,43 +14,40 @@ class User {
   final String lastName;
   final String email;
   final String password;
-  final double accountBalance;
   static const url = 'https://localhost:7234/api';
 
-  User(this.id, this.firstName, this.lastName, this.email, this.password,
-      this.accountBalance);
+  User(this.id, this.firstName, this.lastName, this.email, this.password);
 
-  static Future<String> register(
-      String firstName, String lastname, String email, String password) async {
-    bool trustSelfSigned = true;
-    HttpClient httpClient = HttpClient()
-      ..badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => trustSelfSigned);
-    IOClient ioClient = IOClient(httpClient);
+  // static Future<String> register(
+  //     String firstName, String lastname, String email, String password) async {
+  //   bool trustSelfSigned = true;
+  //   HttpClient httpClient = HttpClient()
+  //     ..badCertificateCallback =
+  //         ((X509Certificate cert, String host, int port) => trustSelfSigned);
+  //   IOClient ioClient = IOClient(httpClient);
 
-    var response = await ioClient.post(
-      Uri.parse('$url/user'),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      },
-      body: json.encode(
-        {
-          'firstName': firstName,
-          'lastName': lastname,
-          'email': email,
-          'password': password
-        },
-      ),
-    );
-    if (response.statusCode == 200) {
-      var userData = jsonDecode(response.body);
-      user = User(userData['id'], userData['firstName'], userData['lastName'],
-          userData['email'], userData['password'], userData['accountBalance']);
-      return jsonDecode(response.body)["id"];
-    } else {
-      return "";
-    }
-  }
+  //   var response = await ioClient.post(
+  //     Uri.parse('$url/user'),
+  //     headers: {
+  //       HttpHeaders.contentTypeHeader: 'application/json',
+  //     },
+  //     body: json.encode(
+  //       {
+  //         'firstName': firstName,
+  //         'lastName': lastname,
+  //         'email': email,
+  //         'password': password
+  //       },
+  //     ),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     print(jsonDecode(response.body));
+  //     user = jsonDecode(response.body);
+  //     return jsonDecode(response.body)["id"];
+  //   } else {
+  //     return "";
+  //   }
+  // }
 
   static Future<bool> registerCard(String? userId, CreditCard card) async {
     bool trustSelfSigned = true;
@@ -82,7 +82,8 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.put(
-      Uri.parse('$url/password'),
+      Uri.parse(
+          '$url/User/passwordChange?id=ec5a6236-302c-4017-afe4-204fc6b8aea3&newPassword=marko123'),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
@@ -93,12 +94,7 @@ class User {
     return response.statusCode == 200;
   }
 
-  static logOut() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove("loggedIn");
-  }
-
-  static Future getData(String? userId) async {
+  static Future<String> logIn(String email, String password) async {
     bool trustSelfSigned = true;
     HttpClient httpClient = HttpClient()
       ..badCertificateCallback =
@@ -106,13 +102,35 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.get(
-      Uri.parse('$url/user/getbyId?id=$userId'),
+      Uri.parse('$url/User/login?id=' + email + "&newPassword=" + password),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
     );
-    var userData = jsonDecode(response.body);
-    user = User(userData['id'], userData['firstName'], userData['lastName'],
-        userData['email'], userData['password'], userData['accountBalance']);
+
+    if (response.statusCode == 200) {
+      print(jsonDecode(response.body));
+      user = jsonDecode(response.body);
+      return jsonDecode(response.body)["id"];
+    } else {
+      return "";
+    }
+  }
+
+  static logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("loggedIn");
+  }
+
+  static Future getData(String? userId) async {
+    if (userId != null) {
+      var response = await http.get(Uri.parse('$url/user/getbyId/$userId'));
+      user = jsonDecode(response.body);
+    }
+  }
+
+  static Future<double> getBalance() async {
+    var response = await http.get(Uri.parse('$url/user/accountBalance'));
+    return jsonDecode(response.body);
   }
 }
