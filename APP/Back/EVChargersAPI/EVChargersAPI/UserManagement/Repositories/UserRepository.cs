@@ -8,6 +8,8 @@ namespace EVChargersAPI.UserManagement.Repositories
     public interface IUserRepository : IRepository<User>
     {
         Task<User> Login(string email, string password);
+        Task<User> GetById(Guid id);
+
     }
     public class UserRepository : IUserRepository
     {
@@ -29,6 +31,11 @@ namespace EVChargersAPI.UserManagement.Repositories
             return await _context.Users.ToListAsync();
         }
 
+        public async Task<User> GetById(Guid id)
+        {
+            return await _context.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
         public async Task<User> Login(string email, string password)
         {
             return await _context.Users.Where(x => x.Email == email && x.Password == password).FirstOrDefaultAsync();
@@ -39,6 +46,5 @@ namespace EVChargersAPI.UserManagement.Repositories
             _context.SaveChanges();
         }
     }
-
-   
+    
 }
