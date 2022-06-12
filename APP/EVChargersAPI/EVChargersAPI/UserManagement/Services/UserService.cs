@@ -46,6 +46,8 @@ namespace EVChargersAPI.UserManagement.Services
 
         public async Task<User> Create(CreateUserDTO dto)
         {
+            User sameEmailUser = await _userRepository.GetByEmail(dto.Email);
+            if (sameEmailUser != null) throw new Exception("User with entered email exist.");
             User user = new User
             {
                 Id = Guid.NewGuid(),
@@ -61,7 +63,6 @@ namespace EVChargersAPI.UserManagement.Services
             _userRepository.Save();
             return createdUser;
         }
-
         public async Task<IEnumerable<User>> GetAll()
         {
             return await _userRepository.GetAll();

@@ -18,36 +18,38 @@ class User {
 
   User(this.id, this.firstName, this.lastName, this.email, this.password);
 
-  // static Future<String> register(
-  //     String firstName, String lastname, String email, String password) async {
-  //   bool trustSelfSigned = true;
-  //   HttpClient httpClient = HttpClient()
-  //     ..badCertificateCallback =
-  //         ((X509Certificate cert, String host, int port) => trustSelfSigned);
-  //   IOClient ioClient = IOClient(httpClient);
+  static Future<String> register(
+      String firstName, String lastname, String email, String password) async {
+    bool trustSelfSigned = true;
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+    IOClient ioClient = IOClient(httpClient);
 
-  //   var response = await ioClient.post(
-  //     Uri.parse('$url/user'),
-  //     headers: {
-  //       HttpHeaders.contentTypeHeader: 'application/json',
-  //     },
-  //     body: json.encode(
-  //       {
-  //         'firstName': firstName,
-  //         'lastName': lastname,
-  //         'email': email,
-  //         'password': password
-  //       },
-  //     ),
-  //   );
-  //   if (response.statusCode == 200) {
-  //     print(jsonDecode(response.body));
-  //     user = jsonDecode(response.body);
-  //     return jsonDecode(response.body)["id"];
-  //   } else {
-  //     return "";
-  //   }
-  // }
+    var response = await ioClient.post(
+      Uri.parse('$url/user'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: json.encode(
+        {
+          'firstName': firstName,
+          'lastName': lastname,
+          'email': email,
+          'password': password
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      var userData = jsonDecode(response.body);
+      print(userData);
+      user = User(userData['id'], userData['firstName'], userData['lastName'],
+          userData['email'], userData['password'], 0.0);
+      return jsonDecode(response.body)["id"];
+    } else {
+      return "";
+    }
+  }
 
   static Future<bool> registerCard(String? userId, CreditCard card) async {
     bool trustSelfSigned = true;

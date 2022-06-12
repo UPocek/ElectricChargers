@@ -9,7 +9,7 @@ namespace EVChargersAPI.UserManagement.Repositories
     {
         Task<User> Login(string email, string password);
         Task<User> GetById(Guid id);
-
+        Task<User> GetByEmail(string email);
     }
     public class UserRepository : IUserRepository
     {
@@ -51,6 +51,11 @@ namespace EVChargersAPI.UserManagement.Repositories
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            return await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
         }
     }
     
