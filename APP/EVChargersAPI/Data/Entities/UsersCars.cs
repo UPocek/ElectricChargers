@@ -17,11 +17,11 @@ namespace Data.Entities
 
         [Column("car")]
         [JsonPropertyName("car")]
-        public Guid Car { get; set; }
+        public Guid CarId { get; set; }
 
         [Column("person")]
         [JsonPropertyName("person")]
-        public Guid Person { get; set; }
+        public Guid UserId { get; set; }
 
     }
 }

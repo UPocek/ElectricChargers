@@ -30,6 +30,38 @@ namespace EVChargersAPI.CarManagement.Controllers
             return Ok(car);
         }
 
+        [HttpPost]
+        [Route("setPersonsCar")]
+        public async Task<ActionResult<UsersCars>> SetPersonsCar(Guid userId, Guid carId)
+        {
+            UsersCars usersCars;
+            try
+            {
+                usersCars = await _carService.SetUsersCar(userId, carId);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok(usersCars);
+        }
+
+        [HttpGet]
+        [Route("getPersonsCars")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetPersonsCars(Guid userId)
+        {
+            IEnumerable<Car> usersCars;
+            try
+            {
+                usersCars = await _carService.GetUsersCars(userId);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok(usersCars);
+        }
+
 
     }
 }
