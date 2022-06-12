@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../widgets/big_text_field.dart';
+import '../style.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   ChangePasswordScreen({Key? key}) : super(key: key);
@@ -12,6 +14,13 @@ class ChangePasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     return Scaffold(
+      appBar: AppBar(
+        elevation: 5,
+        toolbarHeight: 80,
+        title: const Text("Personal"),
+        titleTextStyle: titleTextStyle,
+        backgroundColor: Colors.white,
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -29,9 +38,9 @@ class ChangePasswordScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(
                   children: [
-                    MyTextField(passwordController,
+                    BigTextField(passwordController,
                         TextInputType.visiblePassword, "Password*", true),
-                    MyTextField(
+                    BigTextField(
                         passwordRepeatController,
                         TextInputType.visiblePassword,
                         "Repeat password*",
@@ -41,22 +50,35 @@ class ChangePasswordScreen extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: (() => {
-                          if (passwordController.text == "" || passwordController.text == "") {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Invalide input values"))),
-                          }else if (passwordController.text != passwordRepeatController.text) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Passwords don't match"))),
-                          }
-                          else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Successfuly changed password")))
-                          },
-                           Navigator.of(context).pop(context)
-                          }
-                  ),
-                         
-                          
+                              if (passwordController.text == "" ||
+                                  passwordRepeatController.text == "")
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Invalide input values"),
+                                    ),
+                                  ),
+                                }
+                              else if (passwordController.text !=
+                                  passwordRepeatController.text)
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Passwords don't match"),
+                                    ),
+                                  ),
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text("Successfuly changed password"),
+                                    ),
+                                  ),
+                                },
+                              Navigator.of(context).pop(context)
+                            }),
                         child: const Text("Change"))
                   ],
                 ),
@@ -69,19 +91,18 @@ class ChangePasswordScreen extends StatelessWidget {
   }
 
   bool areInputsValid(BuildContext context) {
-      if (passwordController.text == "" ||
-          passwordController.text == "") {
-        showError(context, "Invalide input values");
-        return false;
-      }
-      if (passwordController.text != passwordRepeatController.text) {
-        showError(context, "Entered passwords don't match");
-        return false;
-      }
-      return true;
+    if (passwordController.text == "" || passwordController.text == "") {
+      showError(context, "Invalide input values");
+      return false;
     }
+    if (passwordController.text != passwordRepeatController.text) {
+      showError(context, "Entered passwords don't match");
+      return false;
+    }
+    return true;
+  }
 
-    showError(BuildContext context, String message) {
+  showError(BuildContext context, String message) {
     showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
@@ -89,49 +110,19 @@ class ChangePasswordScreen extends StatelessWidget {
             title: const Text("Error"), content: Text(message));
       },
       barrierDismissible: true,
-    );}
+    );
+  }
 
-    showSuccess(BuildContext context ) {
+  showSuccess(BuildContext context) {
     showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
         return const CupertinoAlertDialog(
-            title: Text("Success"), content: Text("Successfuly changed password"));
+          title: Text("Success"),
+          content: Text("Successfuly changed password"),
+        );
       },
       barrierDismissible: true,
-    );
-  }
-}
-
-class MyTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final TextInputType keyboard;
-  final String hintText;
-  final bool obscureText;
-
-  const MyTextField(
-      this.controller, this.keyboard, this.hintText, this.obscureText,
-      {Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
-      child: TextField(
-        controller: controller,
-        keyboardType: keyboard,
-        obscureText: obscureText,
-        style: Theme.of(context).textTheme.bodyText1,
-        decoration: InputDecoration(
-          labelText: hintText,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

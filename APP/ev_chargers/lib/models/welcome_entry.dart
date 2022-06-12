@@ -28,4 +28,4 @@ class WelcomeEntry {
       return const WelcomeEntry("", "", []);
     }
   }
-
+}
