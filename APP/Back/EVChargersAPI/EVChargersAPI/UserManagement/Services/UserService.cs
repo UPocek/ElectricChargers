@@ -7,7 +7,7 @@ namespace EVChargersAPI.UserManagement.Services
     {
         Task<User> Login(string email, string password);
         Task<User> GetById(Guid id);
-
+        Task<User> SetBankCard(Guid id, string bankCard);
     }
 
     public class UserService : IUserService
@@ -39,6 +39,16 @@ namespace EVChargersAPI.UserManagement.Services
         public async Task<User> Login(string email, string password)
         {
             return await _userRepository.Login(email, password);
+        }
+
+        public async Task<User> SetBankCard(Guid id, string bankCard)
+        {
+            User user = await GetById(id);
+            if (user == null) throw new Exception("User not found");
+            user.BankCard = bankCard;
+            _ = _userRepository.Update(user);
+            _userRepository.Save();
+            return user;
         }
     }
 }

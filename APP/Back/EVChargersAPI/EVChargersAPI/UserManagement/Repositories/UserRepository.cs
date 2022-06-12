@@ -41,6 +41,13 @@ namespace EVChargersAPI.UserManagement.Repositories
             return await _context.Users.Where(x => x.Email == email && x.Password == password).FirstOrDefaultAsync();
         }
 
+        public User Update(User user)
+        {
+            EntityEntry<User> updatedEntry = _context.Users.Attach(user);
+            _context.Entry(user).State = EntityState.Modified;
+            return updatedEntry.Entity;
+        }
+
         public void Save()
         {
             _context.SaveChanges();
