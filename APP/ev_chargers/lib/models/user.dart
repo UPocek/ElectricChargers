@@ -115,4 +115,27 @@ class User {
     user = User(userData['id'], userData['firstName'], userData['lastName'],
         userData['email'], userData['password'], userData['accountBalance']);
   }
+
+  static Future<String> logIn(String email, String password) async {
+    bool trustSelfSigned = true;
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+    IOClient ioClient = IOClient(httpClient);
+
+    var response = await ioClient.get(
+      Uri.parse('$url/User/login?id=' + email + "&newPassword=" + password),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var userData = jsonDecode(response.body);
+      user = User(userData['id'], userData['firstName'], userData['lastName'],
+          userData['email'], userData['password'], 0.0);
+      return jsonDecode(response.body)["id"];
+    } else {
+      return "";
+    }
+  }
 }
