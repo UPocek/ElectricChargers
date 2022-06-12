@@ -38,6 +38,7 @@ dependencies:
   http: ^0.13.4
   flutter_credit_card: ^3.0.1
   google_maps_flutter: ^2.1.7
+  geolocator: ^8.2.1
 
 dev_dependencies:
   flutter_test:

@@ -31,6 +31,8 @@ class _MyAppState extends State<MyApp> {
       if (loggedIn == true) {
         User.getData(prefs.getString('userId'));
       }
+      loggedIn = true;
+      User.getData('5b6fe430-d374-4c39-b2f6-0c5bbf5f2908');
     });
   }
 

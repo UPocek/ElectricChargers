@@ -41,7 +41,6 @@ class User {
     );
     if (response.statusCode == 200) {
       var userData = jsonDecode(response.body);
-      print(userData);
       user = User(userData['id'], userData['firstName'], userData['lastName'],
           userData['email'], userData['password'], 0.0);
       return jsonDecode(response.body)["id"];
