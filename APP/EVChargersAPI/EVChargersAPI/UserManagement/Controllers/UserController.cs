@@ -65,5 +65,21 @@ namespace EVChargersAPI.UserManagement.Controllers
             }
             return Ok(user);
         }
+
+        [HttpPut]
+        [Route("passwordChange")]
+        public async Task<ActionResult<User>> ChangePassword(Guid id, string newPassword)
+        {
+            User user;
+            try
+            {
+                user = await _userService.ChangePassword(id, newPassword);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
     } 
 }
