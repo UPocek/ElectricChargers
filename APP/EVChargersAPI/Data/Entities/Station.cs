@@ -22,5 +22,15 @@ namespace Data.Entities
         [Column("address")]
         [JsonPropertyName("address")]
         public Guid AddressId { get; set; }
+
+        [Column("latitude")]
+        [JsonPropertyName("latitude")]
+        public decimal Latitude { get; set; }
+
+        [Column("longitude")]
+        [JsonPropertyName("longitude")]
+        public decimal Longitude { get; set; }
+        [JsonPropertyName("fullAddress")]
+        public Address Address { get; set; }
     }
 }

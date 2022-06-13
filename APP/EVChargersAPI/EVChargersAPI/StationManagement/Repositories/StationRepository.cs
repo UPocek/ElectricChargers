@@ -25,12 +25,12 @@ namespace EVChargersAPI.StationManagement.Repositories
 
         public async Task<IEnumerable<Station>> GetAll()
         {
-            return await _context.Stations.ToListAsync();
+            return await _context.Stations.Include(x=>x.Address).ThenInclude(x => x.City).ToListAsync();
         }
 
         public async Task<Station> GetById(Guid id)
         {
-            return await _context.Stations.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _context.Stations.Where(x => x.Id == id).Include(x => x.Address).ThenInclude(x => x.City).FirstOrDefaultAsync();
         }
 
         public void Save()
