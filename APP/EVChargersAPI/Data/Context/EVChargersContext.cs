@@ -39,7 +39,7 @@ namespace Data.Context
             modelBuilder.Entity<CreditCard>().HasKey(x => x.Id);
             modelBuilder.Entity<Reservation>().HasKey(x => x.Id);
             modelBuilder.Entity<Station>().HasKey(x => x.Id);
-            modelBuilder.Entity<Transaction>().HasKey(x => new {x.StationId, x.PersonId, x.TransactionDate});
+            modelBuilder.Entity<Transaction>().HasKey(x => new {x.StationId, x.UserId, x.TransactionDate});
             modelBuilder.Entity<User>().HasKey(x => x.Id);
             modelBuilder.Entity<UsersCars>().HasKey(x => x.Id);
         }
