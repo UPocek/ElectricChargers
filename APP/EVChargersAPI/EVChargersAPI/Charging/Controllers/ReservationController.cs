@@ -58,5 +58,21 @@ namespace EVChargersAPI.Charging.Controllers
             }
             return Ok(deletedReservation);
         }
+
+        [HttpGet]
+        [Route("getForUser")]
+        public async Task<ActionResult<IEnumerable<Reservation>>> GetForUser(Guid userId)
+        {
+            IEnumerable<Reservation> reservations;
+            try
+            {
+                reservations = await _reservationService.GetForUser(userId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(reservations);
+        }
     }
 }

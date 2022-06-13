@@ -12,6 +12,7 @@ namespace EVChargersAPI.Charging.Services
         Task<Reservation> GetById(Guid id);
         Task<Reservation> Create(Guid userId, Guid stationId, DateTime date);
         Task<Reservation> Delete(Guid id);
+        Task<IEnumerable<Reservation>> GetForUser(Guid userId);
     }
 
     public class ReservationService : IReservationService
@@ -76,6 +77,13 @@ namespace EVChargersAPI.Charging.Services
         public Task<Reservation> GetById(Guid id)
         {
             return _reservationRepository.GetById(id);
+        }
+
+        public async Task<IEnumerable<Reservation>> GetForUser(Guid userId)
+        {
+            User user = await _userRepository.GetById(userId);
+            if (user == null) throw new Exception("User do not exist.");
+            return await _reservationRepository.GetAllForUser(userId);
         }
     }
 }

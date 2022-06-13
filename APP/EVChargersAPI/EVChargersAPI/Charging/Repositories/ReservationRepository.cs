@@ -37,7 +37,12 @@ namespace EVChargersAPI.Charging.Repositories
 
         public async Task<IEnumerable<Reservation>> GetAll()
         {
-            return await _context.Reservations.ToListAsync();
+            return await _context.Reservations
+                .Include(x => x.Charger)
+                .ThenInclude(x => x.Station)
+                .ThenInclude(x => x.Address)
+                .ThenInclude(x => x.City)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Reservation>> GetAllForUser(Guid userId)
@@ -50,7 +55,12 @@ namespace EVChargersAPI.Charging.Repositories
 
         public async Task<Reservation> GetById(Guid id)
         {
-            return await _context.Reservations.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _context.Reservations.Where(x => x.Id == id)
+                .Include(x => x.Charger)
+                .ThenInclude(x => x.Station)
+                .ThenInclude(x => x.Address)
+                .ThenInclude(x => x.City)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<bool> IsAvailable(Guid userId, DateTime date)

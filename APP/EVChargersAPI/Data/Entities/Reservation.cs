@@ -26,5 +26,8 @@ namespace Data.Entities
         [Column("charger")]
         [JsonPropertyName("charger")]
         public Guid ChargerId { get; set; }
+
+        [JsonPropertyName("fullCharger")]
+        public Charger Charger { get; set; }
     }
 }

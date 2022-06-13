@@ -35,6 +35,9 @@ namespace Data.Entities
         [JsonPropertyName("station")]
         public Guid StationId { get; set; }
 
+        [JsonPropertyName("fullStation")]
+        public Station Station { get; set; }
+
         [Column("rfid")]
         [JsonPropertyName("rfid")]
         public string Rfid { get; set; }
