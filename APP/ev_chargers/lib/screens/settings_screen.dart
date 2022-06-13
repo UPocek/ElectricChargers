@@ -1,5 +1,6 @@
 import 'package:ev_chargers/screens/current_account.dart';
 import 'package:ev_chargers/screens/login_screen.dart';
+import 'package:ev_chargers/screens/prepaid_screen.dart';
 import 'package:ev_chargers/style.dart';
 import 'package:ev_chargers/widgets/action_button.dart';
 import 'package:ev_chargers/widgets/padding_card.dart';
@@ -19,16 +20,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: [
-        const PaddingCard(SettingsCard("Personal", [
-          CardItem(Icons.person_outline_outlined, "Personal"),
-          CardItem(Icons.edit_outlined, "Survays"),
-          CardItem(Icons.place_outlined, "Suggest a Charger"),
+        PaddingCard(SettingsCard("Personal", [
+          CardItem(Icons.person_outline_outlined, "Current Account",
+              function: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CurrentAccount(),
+              ),
+            );
+          }),
+          const CardItem(Icons.edit_outlined, "Survays"),
+          const CardItem(Icons.place_outlined, "Suggest a Charger"),
         ])),
-        const PaddingCard(SettingsCard("Payments", [
-          CardItem(Icons.payment_outlined, "Payment Method"),
-          CardItem(Icons.bolt_outlined, "My Pricing"),
-          CardItem(Icons.ev_station_outlined, "My Charging"),
-          CardItem(Icons.confirmation_num_outlined, "Promotions"),
+        PaddingCard(SettingsCard("Payments", [
+          CardItem(Icons.payment_outlined, "Prepaid", function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PrepaidScreen(),
+                ));
+          }),
+          const CardItem(Icons.bolt_outlined, "My Pricing"),
+          const CardItem(Icons.ev_station_outlined, "My Charging"),
+          const CardItem(Icons.confirmation_num_outlined, "Promotions"),
         ])),
         const PaddingCard(SettingsCard("Information", [
           CardItem(Icons.call_outlined, "Live Support"),
@@ -74,20 +89,15 @@ class SettingsCard extends StatelessWidget {
 class CardItem extends StatelessWidget {
   final IconData icon;
   final String title;
+  final void Function()? function;
 
-  const CardItem(this.icon, this.title, {Key? key}) : super(key: key);
+  const CardItem(this.icon, this.title, {Key? key, this.function})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (() {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const CurrentAccount(),
-          ),
-        );
-      }),
+      onTap: function,
       child: ListTile(
         leading: Icon(
           icon,
