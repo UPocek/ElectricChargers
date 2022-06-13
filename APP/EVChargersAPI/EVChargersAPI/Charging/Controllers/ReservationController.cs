@@ -29,5 +29,20 @@ namespace EVChargersAPI.Charging.Controllers
             Reservation charger = await _reservationService.GetById(id);
             return Ok(charger);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Reservation>> Create(Guid userId, Guid stationId, DateTime date)
+        {
+            Reservation reservation;
+            try
+            {
+                reservation = await _reservationService.Create(userId, stationId, date);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok(reservation);
+        }
     }
 }
