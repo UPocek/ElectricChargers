@@ -36,28 +36,4 @@ class Station {
     }
     return stations;
   }
-
-  static Future<bool> createReservation(
-      String? userId, String stationId, String reservationDateTime) async {
-    bool trustSelfSigned = true;
-    HttpClient httpClient = HttpClient()
-      ..badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => trustSelfSigned);
-    IOClient ioClient = IOClient(httpClient);
-
-    var response = await ioClient.post(
-      Uri.parse('$url/reservation'),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      },
-      body: json.encode(
-        {
-          'userId': userId,
-          'stationId': stationId,
-          'reservationDateTime': reservationDateTime
-        },
-      ),
-    );
-    return response.statusCode == 200;
-  }
 }
