@@ -21,7 +21,7 @@ class HomeScreenState extends State<HomeScreen>
     Tab(icon: Icon(Icons.map_outlined)),
     Tab(icon: Icon(Icons.settings_outlined)),
   ];
-  List<Widget> pages = [
+  List<Widget> pages = const [
     ProfileScreen(),
     ReservationScreen(),
     MapScreen(),

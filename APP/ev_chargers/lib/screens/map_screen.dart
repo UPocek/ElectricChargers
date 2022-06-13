@@ -1,16 +1,21 @@
 import 'dart:async';
+import 'package:ev_chargers/models/station.dart';
+import 'package:ev_chargers/screens/create_reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({Key? key}) : super(key: key);
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
   Position? position;
   LatLng? _center;
@@ -52,28 +57,32 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  void setUpMarkers() {
-    for (var position in [
-      const LatLng(45.2396, 19.8227),
-      const LatLng(45.2490, 19.8290)
-    ]) {
-      setState(() {
-        _markers.add(
-          Marker(
-            markerId: MarkerId(position.toString()),
-            position: position,
-            infoWindow: const InfoWindow(
-              title: 'Really cool place',
-              snippet: '5 Star Rating',
+  void setUpMarkers() async {
+    List<Station> stations = await Station.getAllStations();
+    for (Station station in stations) {
+      setState(
+        () {
+          _markers.add(
+            Marker(
+              markerId: MarkerId(station.id),
+              position: LatLng(station.latitude, station.longitude),
+              infoWindow: InfoWindow(
+                title: station.name,
+                snippet: station.address,
+              ),
+              icon: BitmapDescriptor.defaultMarker,
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: ((context) => MakeReservationScreen(
+                        station.id, station.name, station.address)),
+                  ),
+                );
+              },
             ),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueAzure),
-            onTap: () {
-              print("Radi");
-            },
-          ),
-        );
-      });
+          );
+        },
+      );
     }
   }
 
@@ -99,6 +108,14 @@ class _MapScreenState extends State<MapScreen> {
                 zoom: 13.0,
               ),
               markers: _markers,
+              zoomGesturesEnabled: true,
+              scrollGesturesEnabled: true,
+              mapType: MapType.normal,
+              gestureRecognizers: {}..add(
+                  Factory<PanGestureRecognizer>(
+                    () => PanGestureRecognizer(),
+                  ),
+                ),
             )
           : const Center(child: CircularProgressIndicator()),
     );

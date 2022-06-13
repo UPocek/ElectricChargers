@@ -1,6 +1,5 @@
 import 'package:ev_chargers/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'registration_screen.dart';
 import '../models/welcome_entry.dart';
 
 class WelcomeScreen extends StatelessWidget {

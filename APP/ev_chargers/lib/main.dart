@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       loggedIn = prefs.getBool('loggedIn');
       if (loggedIn == true) {
-        User.getData(prefs.getString('userId'));
+        User.getPersonalInformations(prefs.getString('userId'));
       }
       loggedIn = true;
     });

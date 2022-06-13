@@ -13,7 +13,6 @@ class User {
   final String email;
   final String password;
   final double accountBalance;
-  static const url = 'https://localhost:7234/api';
 
   User(this.id, this.firstName, this.lastName, this.email, this.password,
       this.accountBalance);
@@ -99,7 +98,7 @@ class User {
     await prefs.remove("loggedIn");
   }
 
-  static Future getData(String? userId) async {
+  static Future getPersonalInformations(String? userId) async {
     bool trustSelfSigned = true;
     HttpClient httpClient = HttpClient()
       ..badCertificateCallback =
@@ -125,7 +124,7 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.get(
-      Uri.parse('$url/User/login?email=' + email + "&password=" + password),
+      Uri.parse('$url/user/login?email=$email&password=$password'),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
