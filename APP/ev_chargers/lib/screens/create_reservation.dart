@@ -1,5 +1,5 @@
 import 'package:ev_chargers/helper.dart';
-import 'package:ev_chargers/models/station.dart';
+import 'package:ev_chargers/models/reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../style.dart';
@@ -15,6 +15,7 @@ class MakeReservationScreen extends StatelessWidget {
 
   final TextEditingController dateController = TextEditingController();
   Color? backgroundColor;
+  String selectedDate = '';
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +54,14 @@ class MakeReservationScreen extends StatelessWidget {
                           DateTime(now.year, now.month + 1, now.day, 23, 59),
                       onChanged: (date) {
                     dateController.text =
-                        '${date.year}-${date.month}-${date.day} at ${date.hour}:${date.minute}';
+                        '${date.year}-${date.month >= 10 ? date.month : date.month.toString().padLeft(2, '0')}-${date.day >= 10 ? date.day : date.day.toString().padLeft(2, '0')} at ${date.hour >= 10 ? date.hour : date.hour.toString().padLeft(2, '0')}:${date.minute >= 10 ? date.minute : date.minute.toString().padLeft(2, '0')}';
+                    selectedDate =
+                        '${date.year}-${date.month >= 10 ? date.month : date.month.toString().padLeft(2, '0')}-${date.day >= 10 ? date.day : date.day.toString().padLeft(2, '0')}T${date.hour >= 10 ? date.hour : date.hour.toString().padLeft(2, '0')}:${date.minute >= 10 ? date.minute : date.minute.toString().padLeft(2, '0')}';
                   }, onConfirm: (date) {
                     dateController.text =
-                        '${date.year}-${date.month}-${date.day} at ${date.hour}:${date.minute}';
+                        '${date.year}-${date.month >= 10 ? date.month : date.month.toString().padLeft(2, '0')}-${date.day >= 10 ? date.day : date.day.toString().padLeft(2, '0')} at ${date.hour >= 10 ? date.hour : date.hour.toString().padLeft(2, '0')}:${date.minute >= 10 ? date.minute : date.minute.toString().padLeft(2, '0')}';
+                    selectedDate =
+                        '${date.year}-${date.month >= 10 ? date.month : date.month.toString().padLeft(2, '0')}-${date.day >= 10 ? date.day : date.day.toString().padLeft(2, '0')}T${date.hour >= 10 ? date.hour : date.hour.toString().padLeft(2, '0')}:${date.minute >= 10 ? date.minute : date.minute.toString().padLeft(2, '0')}';
                   }, currentTime: DateTime.now(), locale: LocaleType.en);
                 },
                 controller: dateController,
@@ -93,8 +98,8 @@ class MakeReservationScreen extends StatelessWidget {
       return;
     }
 
-    if (await Station.createReservation(
-        user?.id, stationId, dateController.text)) {
+    if (await Reservation.createReservation(Reservation(
+        user?.id, stationId, '$selectedDate:00.000Z', stationName))) {
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
