@@ -7,7 +7,6 @@ namespace EVChargersAPI.StationManagement.Services
     public interface IChargerService : IService<Charger>
     {
         Task<Charger> GetById(Guid id);
-       
     }
 
     public class ChargerService : IChargerService

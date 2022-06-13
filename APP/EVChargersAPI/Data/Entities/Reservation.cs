@@ -21,7 +21,7 @@ namespace Data.Entities
 
         [Column("person")]
         [JsonPropertyName("person")]
-        public Guid PersonId { get; set; }
+        public Guid UserId { get; set; }
 
         [Column("charger")]
         [JsonPropertyName("charger")]
