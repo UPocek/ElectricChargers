@@ -44,5 +44,19 @@ namespace EVChargersAPI.Charging.Controllers
             }
             return Ok(reservation);
         }
+        [HttpDelete]
+        public async Task<ActionResult<Reservation>> Delete(Guid id)
+        {
+            Reservation deletedReservation;
+            try
+            {
+                deletedReservation = await _reservationService.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(deletedReservation);
+        }
     }
 }

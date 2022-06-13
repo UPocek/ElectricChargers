@@ -11,6 +11,7 @@ namespace EVChargersAPI.Charging.Services
     {
         Task<Reservation> GetById(Guid id);
         Task<Reservation> Create(Guid userId, Guid stationId, DateTime date);
+        Task<Reservation> Delete(Guid id);
     }
 
     public class ReservationService : IReservationService
@@ -55,6 +56,16 @@ namespace EVChargersAPI.Charging.Services
             _reservationRepository.Save();
             return reservation;
 
+        }
+
+        public async Task<Reservation> Delete(Guid id)
+        {
+            Reservation reservation = await _reservationRepository.GetById(id);
+            if (reservation == null) throw new Exception("Reservation do not exist.");
+            _ = _reservationRepository.Delete(reservation);
+            _reservationRepository.Save();
+            return reservation;
+                    
         }
 
         public Task<IEnumerable<Reservation>> GetAll()
