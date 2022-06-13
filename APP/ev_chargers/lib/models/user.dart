@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:ev_chargers/models/credit_card.dart';
+import 'package:flutter/src/services/text_input.dart';
 import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../helper.dart';
@@ -124,7 +125,7 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.get(
-      Uri.parse('$url/User/login?id=' + email + "&newPassword=" + password),
+      Uri.parse('$url/User/login?email=' + email + "&password=" + password),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
@@ -137,5 +138,21 @@ class User {
     } else {
       return "";
     }
+  }
+
+  static Future<bool> addCash(String? userId, int? value) async {
+    bool trustSelfSigned = true;
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+    IOClient ioClient = IOClient(httpClient);
+
+    var response = await ioClient.put(
+      Uri.parse('$url/addCash?id=$userId&amount=$value'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+    );
+    return response.statusCode == 200;
   }
 }

@@ -72,3 +72,28 @@ var myTabBarTheme = TabBarTheme(
 var iconTheme = const IconThemeData(
   color: Colors.black,
 );
+
+const formButtonTextStyle = TextStyle(
+    fontFamily: fontName,
+    fontWeight: FontWeight.w500,
+    fontSize: miniTextSize,
+    color: Colors.amber,
+    backgroundColor: Colors.white,
+    height: 1.6);
+
+var formButton = ButtonStyle(
+    padding: MaterialStateProperty.all<EdgeInsets>(
+      const EdgeInsets.fromLTRB(28.0, 15.0, 28.0, 15.0),
+    ),
+    textStyle: MaterialStateProperty.all(formButtonTextStyle),
+    backgroundColor:
+        MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+      return Colors.white;
+    }));
+
+var prepaidTextStyle = const TextStyle(
+  color: Colors.white,
+  fontFamily: fontName,
+  fontWeight: FontWeight.w500,
+  fontSize: 22,
+);
