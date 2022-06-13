@@ -1,9 +1,5 @@
-import 'package:ev_chargers/helper.dart';
-import 'package:ev_chargers/widgets/action_button.dart';
-import 'package:ev_chargers/widgets/padding_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../models/user.dart';
 import '../style.dart';
 
 class PrepaidScreen extends StatelessWidget {

@@ -154,4 +154,6 @@ class User {
     );
     return response.statusCode == 200;
   }
+
+  static void payForCharging(double progress) {}
 }
