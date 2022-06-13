@@ -33,7 +33,7 @@ namespace EVChargersAPI.Charging.Repositories
 
         public async Task<IEnumerable<Transaction>> GetAllForUser(Guid userId)
         {
-            return await _context.Transactions.Where(x => x.UserId == userId).OrderBy(x => x.TransactionDate).ToListAsync();
+            return await _context.Transactions.Where(x => x.UserId == userId).OrderByDescending(x => x.TransactionDate).ToListAsync();
         }
 
         public async Task<ChargingPrice> GetPrice(Guid stationId)
@@ -41,7 +41,7 @@ namespace EVChargersAPI.Charging.Repositories
             return await _context.ChargingPrices
                 .Where(x => x.StationId == stationId)
                 .Where(x => x.DateFrom < DateTime.Now)
-                .OrderBy(x => x.DateFrom)
+                .OrderByDescending(x => x.DateFrom)
                 .FirstOrDefaultAsync();
         }
 

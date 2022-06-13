@@ -35,9 +35,14 @@ namespace EVChargersAPI.Charging.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Transaction>> GetForUser(Guid userId)
+        public async Task<IEnumerable<Transaction>> GetForUser(Guid userId)
         {
-            throw new NotImplementedException();
+            List<Transaction> transaction = (List<Transaction>)await _transactionRepository.GetAllForUser(userId);
+            if (transaction.Count <= 5) return transaction;
+            List<Transaction> result = new List<Transaction>();
+            for(int i = 0; i < 5; i++)
+                result.Add(transaction[i]);
+            return result;
         }
 
         public async Task<IEnumerable<Transaction>> GetAll()
