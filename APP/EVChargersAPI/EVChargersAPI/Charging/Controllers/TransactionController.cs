@@ -1,5 +1,6 @@
 ﻿using Data.Entities;
 using EVChargersAPI.Charging.Services;
+using EVChargersAPI.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EVChargersAPI.Charging.Controllers
@@ -71,6 +72,22 @@ namespace EVChargersAPI.Charging.Controllers
                 return BadRequest(ex.Message);
             }
             return Ok(price);
+        }
+
+        [HttpGet]
+        [Route("stats")]
+        public async Task<ActionResult<StatsDTO>> GetMonthlyStats(Guid userId)
+        {
+            StatsDTO dto;
+            try
+            {
+                dto = await _transactionService.GetMonthlyStats(userId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(dto);
         }
     }
 }

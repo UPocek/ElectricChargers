@@ -1,5 +1,6 @@
 ﻿using Data.Entities;
 using EVChargersAPI.Charging.Repositories;
+using EVChargersAPI.DTO;
 using EVChargersAPI.StationManagement.Repositories;
 using EVChargersAPI.UserManagement.Repositories;
 using EVChargersAPI.UserManagement.Services;
@@ -12,6 +13,7 @@ namespace EVChargersAPI.Charging.Services
         Task<IEnumerable<Transaction>> GetForUser(Guid userId);
         Task<bool> StartCharging(Guid userId, string rfid);
         Task<double> StopCharging(Guid userId, double kwh, string rfid);
+        Task<StatsDTO> GetMonthlyStats(Guid userId);
     }
 
     public class TransactionService : ITransactionService
@@ -90,6 +92,18 @@ namespace EVChargersAPI.Charging.Services
 
 
             return (double)transaction.Price;
+        }
+
+        public async Task<StatsDTO> GetMonthlyStats(Guid userId)
+        {
+            User user = await _userRepository.GetById(userId);
+            if (user == null) throw new Exception("User cannot be found!");
+            StatsDTO stats = new StatsDTO
+            {
+                Price = _transactionRepository.GetMonthlyPrice(userId),
+                Kwh = _transactionRepository.GetMonthlyKwh(userId)
+            };
+            return stats;
         }
     }
 

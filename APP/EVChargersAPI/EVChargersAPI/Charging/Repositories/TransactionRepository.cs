@@ -10,6 +10,8 @@ namespace EVChargersAPI.Charging.Repositories
     {
         Task<IEnumerable<Transaction>> GetAllForUser(Guid userId);
         Task<ChargingPrice> GetPrice(Guid stationId);
+        double GetMonthlyPrice(Guid userId);
+        double GetMonthlyKwh(Guid userId);
     }
     public class TransactionRepository : ITransactionRepository
     {
@@ -34,6 +36,22 @@ namespace EVChargersAPI.Charging.Repositories
         public async Task<IEnumerable<Transaction>> GetAllForUser(Guid userId)
         {
             return await _context.Transactions.Where(x => x.UserId == userId).OrderByDescending(x => x.TransactionDate).ToListAsync();
+        }
+
+        public double GetMonthlyKwh(Guid userId)
+        {
+            return (double)_context.Transactions
+                .Where(x => x.UserId == userId)
+                .Where(x => x.TransactionDate >= DateTime.Now.AddDays(-30))
+                .Sum(x => x.Kwh);
+        }
+
+        public double GetMonthlyPrice(Guid userId)
+        {
+            return (double)_context.Transactions
+                .Where(x => x.UserId == userId)
+                .Where(x => x.TransactionDate >= DateTime.Now.AddDays(-30))
+                .Sum(x => x.Price);
         }
 
         public async Task<ChargingPrice> GetPrice(Guid stationId)
