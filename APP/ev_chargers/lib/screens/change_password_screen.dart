@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:ev_chargers/widgets/action_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import '../models/user.dart';
 import '../widgets/big_text_field.dart';
 import '../style.dart';
-import '../helper.dart';
-import 'package:http/http.dart' as http;
 
 class ChangePasswordScreen extends StatelessWidget {
   ChangePasswordScreen({Key? key}) : super(key: key);
@@ -55,39 +50,38 @@ class ChangePasswordScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     ActionButton(
-                        "Change",
-                        () async => {
-                              if (passwordController.text == "" ||
-                                  passwordRepeatController.text == "")
-                                {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Invalide input values"),
-                                    ),
-                                  ),
-                                }
-                              else if (passwordController.text !=
-                                  passwordRepeatController.text)
-                                {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Passwords don't match"),
-                                    ),
-                                  ),
-                                }
-                              else
-                                {
-                                  await User.updatePassword(
-                                      passwordController.text),
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text("Successfuly changed password"),
-                                    ),
-                                  ),
-                                },
-                              Navigator.of(context).pop(context)
-                            }),
+                      "Change",
+                      () async => {
+                        if (passwordController.text == "" ||
+                            passwordRepeatController.text == "")
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Invalide input values"),
+                              ),
+                            ),
+                          }
+                        else if (passwordController.text !=
+                            passwordRepeatController.text)
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Passwords don't match"),
+                              ),
+                            ),
+                          }
+                        else
+                          {
+                            await User.updatePassword(passwordController.text),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Successfuly changed password"),
+                              ),
+                            ),
+                          },
+                        Navigator.of(context).pop(context)
+                      },
+                    ),
                   ],
                 ),
               ),

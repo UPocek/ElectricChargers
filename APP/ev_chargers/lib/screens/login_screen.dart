@@ -1,13 +1,9 @@
 import 'package:ev_chargers/screens/home_screen.dart';
 import 'package:ev_chargers/screens/registration_screen.dart';
-import 'package:ev_chargers/widgets/padding_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
-import '../helper.dart';
 import '../widgets/big_text_field.dart';
-import 'credit_card_screen.dart';
 
 class LogInScreen extends StatelessWidget {
   LogInScreen({Key? key}) : super(key: key);
@@ -48,14 +44,15 @@ class LogInScreen extends StatelessWidget {
                       child: const Text("Sign in"),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                        child: InkWell(
-                            child: const Text("Don't have an account yet?"),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: ((context) =>
-                                      RegistrationScreen())));
-                            }))
+                      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      child: InkWell(
+                        child: const Text("Don't have an account yet?"),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => RegistrationScreen())));
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),

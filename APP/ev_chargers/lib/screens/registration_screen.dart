@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
-import '../helper.dart';
 import '../widgets/big_text_field.dart';
 import 'credit_card_screen.dart';
 

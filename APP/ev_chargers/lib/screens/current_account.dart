@@ -2,7 +2,6 @@ import 'package:ev_chargers/screens/change_password_screen.dart';
 import 'package:ev_chargers/widgets/action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:ev_chargers/style.dart';
-import '../helper.dart';
 import '../widgets/padding_card.dart';
 
 class CurrentAccount extends StatelessWidget {
