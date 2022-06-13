@@ -1,3 +1,4 @@
+import 'package:ev_chargers/screens/charging_screen.dart';
 import 'package:ev_chargers/style.dart';
 import 'package:flutter/material.dart';
 import 'map_screen.dart';
@@ -69,7 +70,14 @@ class HomeScreenState extends State<HomeScreen>
         children: pages,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChargingScreen(),
+            ),
+          )
+        },
         backgroundColor: Colors.amber,
         child: const Icon(
           Icons.bolt,
