@@ -26,5 +26,8 @@ namespace Data.Entities
         [Column("city")]
         [JsonPropertyName("city")]
         public Guid CityId { get; set; }
+
+        [JsonPropertyName("fullCity")]
+        public City City { get; set; }
     }
 }
