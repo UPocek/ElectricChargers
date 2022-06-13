@@ -27,5 +27,10 @@ namespace Data.Entities
         [JsonPropertyName("person")]
         public Guid UserId { get; set; }
 
+        [Column("kwh")]
+        [JsonPropertyName("kwh")]
+        public decimal Kwh { get; set; }
+
+
     }
 }

@@ -56,5 +56,21 @@ namespace EVChargersAPI.Charging.Controllers
             return BadRequest("Cannot start charging");
 
         }
+
+        [HttpPost]
+        [Route("stopCharging")]
+        public async Task<ActionResult<double>> StopCharging(Guid userId, double kwh, string rfid)
+        {
+            double price;
+            try
+            {
+                price = await _transactionService.StopCharging(userId, kwh, rfid);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(price);
+        }
     }
 }

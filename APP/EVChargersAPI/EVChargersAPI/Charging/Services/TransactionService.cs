@@ -11,6 +11,7 @@ namespace EVChargersAPI.Charging.Services
         Task<Transaction> Create(Guid userId, Guid stationId, DateTime date);
         Task<IEnumerable<Transaction>> GetForUser(Guid userId);
         Task<bool> StartCharging(Guid userId, string rfid);
+        Task<double> StopCharging(Guid userId, double kwh, string rfid);
     }
 
     public class TransactionService : ITransactionService
@@ -48,13 +49,42 @@ namespace EVChargersAPI.Charging.Services
         {
             User user = await _userRepository.GetById(userId);
             if (user == null) throw new Exception("User cannot be found!");
+            if (user.AccountBalance <= 0) throw new Exception("User is blocked due to not paying chargings!");
             Charger charger = await _chargerRepository.GetByRfid(rfid);
             if (charger == null) throw new Exception("Charger cannot be found!");
-            DateTime date = new DateTime(2022, 6, 15, 15, 15, 0);
-            bool canStart = await _reservationRepository.IsChargerAvailable(charger.Id, date);
+            bool canStart = await _reservationRepository.IsChargerAvailable(charger.Id, DateTime.Now);
             if (canStart)
                 return true;
             return false;
+        }
+
+        public async Task<double> StopCharging(Guid userId, double kwh, string rfid)
+        {
+            User user = await _userRepository.GetById(userId);
+            if (user == null) throw new Exception("User cannot be found!");
+            Charger charger = await _chargerRepository.GetByRfid(rfid);
+            if (charger == null) throw new Exception("Charger cannot be found!");
+
+            ChargingPrice chargingPrice = await _transactionRepository.GetPrice(charger.StationId);
+
+            Transaction transaction = new Transaction
+            {
+                TransactionDate = DateTime.Now,
+                StationId = charger.StationId,
+                UserId = userId,
+                Kwh = (decimal)kwh,
+                Price = chargingPrice.Price * (decimal)kwh,
+            };
+
+            _ = _transactionRepository.Create(transaction);
+            _transactionRepository.Save();
+
+            user.AccountBalance -= transaction.Price;
+            _ = _userRepository.Update(user);
+            _userRepository.Save();
+
+
+            return (double)transaction.Price;
         }
     }
 
