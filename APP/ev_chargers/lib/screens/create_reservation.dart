@@ -14,6 +14,7 @@ class MakeReservationScreen extends StatelessWidget {
       : super(key: key);
 
   final TextEditingController dateController = TextEditingController();
+  Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {

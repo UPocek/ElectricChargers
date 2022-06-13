@@ -27,8 +27,12 @@ class Station {
     );
     List<Station> stations = [];
     for (var station in jsonDecode(response.body)) {
-      stations.add(Station(station['id'], station['name'], station['address'],
-          station['latitude'], station['longitude']));
+      stations.add(Station(
+          station['id'],
+          station['name'],
+          '${station['fullAddress']['street']} ${station['fullAddress']['number']}',
+          station['latitude'],
+          station['longitude']));
     }
     return stations;
   }

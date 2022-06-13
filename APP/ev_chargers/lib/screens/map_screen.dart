@@ -1,11 +1,8 @@
-import 'dart:async';
-import 'package:ev_chargers/models/station.dart';
-import 'package:ev_chargers/screens/create_reservation.dart';
+import 'package:ev_chargers/widgets/google_maps.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -15,11 +12,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final Completer<GoogleMapController> _controller = Completer();
-
-  Position? position;
-  LatLng? _center;
-  final Set<Marker> _markers = {};
+  LatLng? userPosition;
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
@@ -47,77 +40,28 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   getUserLocation() async {
-    position = await _determinePosition();
-    var lat = position?.latitude;
-    var lng = position?.longitude;
-    if (lat != null && lng != null) {
-      setState(() {
-        _center = LatLng(lat, lng);
-      });
-    }
-  }
-
-  void setUpMarkers() async {
-    List<Station> stations = await Station.getAllStations();
-    for (Station station in stations) {
-      setState(
-        () {
-          _markers.add(
-            Marker(
-              markerId: MarkerId(station.id),
-              position: LatLng(station.latitude, station.longitude),
-              infoWindow: InfoWindow(
-                title: station.name,
-                snippet: station.address,
-              ),
-              icon: BitmapDescriptor.defaultMarker,
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => MakeReservationScreen(
-                        station.id, station.name, station.address)),
-                  ),
-                );
-              },
-            ),
-          );
-        },
-      );
-    }
+    Position? position = await _determinePosition();
+    setState(() {
+      userPosition = LatLng(position.latitude, position.longitude);
+    });
   }
 
   @override
   void initState() {
     super.initState();
     getUserLocation();
-    setUpMarkers();
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _center != null
-          ? GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: _center ?? const LatLng(0, 0),
-                zoom: 13.0,
+      body: userPosition != null
+          ? MapWindow(userPosition)
+          : const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.amber,
               ),
-              markers: _markers,
-              zoomGesturesEnabled: true,
-              scrollGesturesEnabled: true,
-              mapType: MapType.normal,
-              gestureRecognizers: {}..add(
-                  Factory<PanGestureRecognizer>(
-                    () => PanGestureRecognizer(),
-                  ),
-                ),
-            )
-          : const Center(child: CircularProgressIndicator()),
+            ),
     );
   }
 }
