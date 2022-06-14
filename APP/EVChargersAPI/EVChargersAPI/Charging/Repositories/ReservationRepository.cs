@@ -50,6 +50,10 @@ namespace EVChargersAPI.Charging.Repositories
             return await _context.Reservations
                 .Where(x => x.UserId == userId)
                 .Where(x => x.ReservationDate > DateTime.Now)
+                .Include(x => x.Charger)
+                .ThenInclude(x => x.Station)
+                .ThenInclude(x => x.Address)
+                .ThenInclude(x => x.City)
                 .ToListAsync();
         }
 
