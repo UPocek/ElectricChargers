@@ -56,7 +56,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: userPosition != null
-          ? MapWindow(userPosition)
+          ? MapWidget(userPosition)
           : const Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.amber,

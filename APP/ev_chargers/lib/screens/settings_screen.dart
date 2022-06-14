@@ -5,8 +5,8 @@ import 'package:ev_chargers/style.dart';
 import 'package:ev_chargers/widgets/action_button.dart';
 import 'package:ev_chargers/widgets/padding_card.dart';
 import 'package:flutter/material.dart';
-import 'package:ev_chargers/screens/change_password_screen.dart';
 import '../models/user.dart';
+import 'create_reservation.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -31,7 +31,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             );
           }),
           const CardItem(Icons.edit_outlined, "Survays"),
-          const CardItem(Icons.place_outlined, "Suggest a Charger"),
+          CardItem(
+            Icons.place_outlined,
+            "Suggest a Charger",
+            function: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateReservationScreen(
+                      '961256b6-e1a8-4e87-aa47-5b38cb25820b',
+                      'Galerija',
+                      'Bulevar Vudroa Vilsona 12'),
+                ),
+              );
+            },
+          ),
         ])),
         PaddingCard(SettingsCard("Payments", [
           CardItem(Icons.payment_outlined, "Prepaid", function: () {

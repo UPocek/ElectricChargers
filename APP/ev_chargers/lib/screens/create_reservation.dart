@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../style.dart';
 
-class MakeReservationScreen extends StatelessWidget {
+class CreateReservationScreen extends StatelessWidget {
   final String stationId;
   final String stationName;
   final String stationAddress;
 
-  MakeReservationScreen(this.stationId, this.stationName, this.stationAddress,
+  CreateReservationScreen(this.stationId, this.stationName, this.stationAddress,
       {Key? key})
       : super(key: key);
 
@@ -98,8 +98,8 @@ class MakeReservationScreen extends StatelessWidget {
       return;
     }
 
-    if (await Reservation.createReservation(Reservation(
-        user?.id, stationId, '$selectedDate:00.000Z', stationName))) {
+    if (await Reservation.createReservation(
+        Reservation(user?.id, stationId, '$selectedDate:00', stationName))) {
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -6,16 +6,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 
-class MapWindow extends StatefulWidget {
+class MapWidget extends StatefulWidget {
   final LatLng? userPosition;
 
-  const MapWindow(this.userPosition, {Key? key}) : super(key: key);
+  const MapWidget(this.userPosition, {Key? key}) : super(key: key);
 
   @override
-  State<MapWindow> createState() => _MapWindowState();
+  State<MapWidget> createState() => _MapWidgetState();
 }
 
-class _MapWindowState extends State<MapWindow> {
+class _MapWidgetState extends State<MapWidget> {
   final Set<Marker> _markers = {};
 
   final Completer<GoogleMapController> _controller = Completer();
@@ -38,7 +38,7 @@ class _MapWindowState extends State<MapWindow> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: ((context) => MakeReservationScreen(
+                builder: ((context) => CreateReservationScreen(
                     station.id, station.name, station.address)),
               ),
             );

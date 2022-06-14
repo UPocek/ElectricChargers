@@ -42,9 +42,9 @@ class User {
       var userData = jsonDecode(response.body);
       user = User(userData['id'], userData['firstName'], userData['lastName'],
           userData['email'], userData['password'], 0.0);
-      return jsonDecode(response.body)["id"];
+      return jsonDecode(response.body)['id'];
     } else {
-      return "";
+      return '';
     }
   }
 
@@ -122,19 +122,15 @@ class User {
           ((X509Certificate cert, String host, int port) => trustSelfSigned);
     IOClient ioClient = IOClient(httpClient);
 
-    var response = await ioClient.get(
-      Uri.parse('$url/user/login?email=$email&password=$password'),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      },
-    );
+    var response = await ioClient
+        .get(Uri.parse('$url/user/login?email=$email&password=$password'));
     if (response.statusCode == 200) {
       var userData = jsonDecode(response.body);
       user = User(userData['id'], userData['firstName'], userData['lastName'],
           userData['email'], userData['password'], 0.0);
-      return jsonDecode(response.body)["id"];
+      return jsonDecode(response.body)['id'];
     } else {
-      return "";
+      return '';
     }
   }
 

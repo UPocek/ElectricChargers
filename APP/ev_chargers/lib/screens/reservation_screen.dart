@@ -69,5 +69,15 @@ class _ReservationScreenState extends State<ReservationScreen> {
         .toList();
   }
 
-  cancelReservation(String id) {}
+  cancelReservation(String id) async {
+    if (!await Reservation.cancelReservation(id)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Cancellation failed. Try again later."),
+        ),
+      );
+    } else {
+      getAllReservations();
+    }
+  }
 }

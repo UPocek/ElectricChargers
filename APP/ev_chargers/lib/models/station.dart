@@ -21,9 +21,6 @@ class Station {
 
     var response = await ioClient.get(
       Uri.parse('$url/station'),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      },
     );
     List<Station> stations = [];
     for (var station in jsonDecode(response.body)) {

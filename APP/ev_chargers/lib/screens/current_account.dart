@@ -1,3 +1,4 @@
+import 'package:ev_chargers/helper.dart';
 import 'package:ev_chargers/screens/change_password_screen.dart';
 import 'package:ev_chargers/widgets/action_button.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,10 @@ class CurrentAccount extends StatelessWidget {
         children: [
           PaddingCard(
             Column(
-              children: const [
-                AccountItem("First name", "Marko"),
-                AccountItem("Last name", "Markovic"),
-                AccountItem("Email", "markomarkovic@gmail.com"),
+              children: [
+                AccountItem("First name", user?.firstName ?? ''),
+                AccountItem("Last name", user?.lastName ?? ''),
+                AccountItem("Email", user?.email ?? ''),
               ],
             ),
           ),

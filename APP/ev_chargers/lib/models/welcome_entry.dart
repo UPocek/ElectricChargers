@@ -25,7 +25,7 @@ class WelcomeEntry {
     if (result != null) {
       return result;
     } else {
-      return const WelcomeEntry("", "", []);
+      return const WelcomeEntry('', '', []);
     }
   }
 }
