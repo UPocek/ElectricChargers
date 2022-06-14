@@ -60,6 +60,14 @@ namespace EVChargersAPI.Charging.Services
             Charger charger = await _chargerRepository.GetByRfid(rfid);
             if (charger == null) throw new Exception("Charger cannot be found!");
             bool canStart = await _reservationRepository.IsChargerAvailable(charger.Id, DateTime.Now);
+            if(!canStart)
+            {
+                Reservation reservation = await _reservationRepository.GetCurrentReservation(charger.Id, DateTime.Now);
+                if(reservation.UserId == userId)
+                {
+                    canStart = true;
+                }
+            }
             if (canStart)
                 return true;
             return false;
