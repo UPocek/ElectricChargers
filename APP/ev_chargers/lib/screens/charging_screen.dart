@@ -1,8 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
-import '../models/user.dart';
 import '../style.dart';
 
 class ChargingScreen extends StatefulWidget {
@@ -17,6 +14,7 @@ class ChargingScreen extends StatefulWidget {
 class ChargingScreenState extends State<ChargingScreen> {
   double _progress = 0;
   late bool _stop = false;
+  double _price = 0;
 
   @override
   void initState() {
@@ -30,20 +28,22 @@ class ChargingScreenState extends State<ChargingScreen> {
       const Duration(seconds: 1),
       (Timer timer) => setState(
         () {
-          if (_progress == 1 || _stop) {
+          if (_progress == 180 || _stop) {
+            payBill();
             timer.cancel();
           } else {
-            _progress += 0.01;
+            _progress += 10;
           }
         },
       ),
     );
   }
 
-  Future<String?> payBill() {
-    User.payForCharging(_progress);
+  Future payBill() {
+    // double price = User.payForCharging(_progress);
     return showDialog<String>(
-        context: context, builder: (Widget) => BillAlert(_progress));
+        context: context,
+        builder: (BuildContext context) => BillAlert(_progress));
   }
 
   @override
@@ -60,16 +60,16 @@ class ChargingScreenState extends State<ChargingScreen> {
         ),
         body: Center(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("Quick as Lightning!", style: titleTextStyle),
+                const Text("Quick as Lightning!", style: titleTextStyle),
                 SizedBox(
                     height: 400,
                     width: 400,
                     child: Stack(alignment: Alignment.center, children: [
-                      Text(
+                      const Text(
                         "⚡️",
                         style: TextStyle(fontSize: 100),
                       ),
@@ -82,7 +82,7 @@ class ChargingScreenState extends State<ChargingScreen> {
                             backgroundColor: Colors.amber,
                             valueColor: const AlwaysStoppedAnimation<Color>(
                                 Colors.black),
-                            value: _progress,
+                            value: _progress / 180,
                           )),
                     ])),
                 const SizedBox(
@@ -94,7 +94,6 @@ class ChargingScreenState extends State<ChargingScreen> {
                     setState(() {
                       _stop = true;
                     });
-                    payBill();
                   },
                 ),
               ],

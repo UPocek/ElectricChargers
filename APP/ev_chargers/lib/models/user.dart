@@ -154,5 +154,46 @@ class User {
     return response.statusCode == 200;
   }
 
-  static void payForCharging(double progress) {}
+  // static Future<double> payForCharging(double progress) {
+  //   bool trustSelfSigned = true;
+  //   HttpClient httpClient = HttpClient()
+  //     ..badCertificateCallback =
+  //         ((X509Certificate cert, String host, int port) => trustSelfSigned);
+  //   IOClient ioClient = IOClient(httpClient);
+
+  //   var response = await ioClient.put(
+  //     Uri.parse('$url/addCash?id=$userId&amount=$value'),
+  //     headers: {
+  //       HttpHeaders.contentTypeHeader: 'application/json',
+  //     },
+  //   );
+  //   return response.statusCode == 200;
+  // }
+
+  static bool checkIfUserHasMoney() {
+    return true;
+  }
+
+  // static Future<double> getPriceForCharging(){
+  //   bool trustSelfSigned = true;
+  //   HttpClient httpClient = HttpClient()
+  //     ..badCertificateCallback =
+  //         ((X509Certificate cert, String host, int port) => trustSelfSigned);
+  //   IOClient ioClient = IOClient(httpClient);
+
+  //   var response = await ioClient.get(
+  //     Uri.parse('$url/user/login?email=$email&password=$password'),
+  //     headers: {
+  //       HttpHeaders.contentTypeHeader: 'application/json',
+  //     },
+  //   );
+  //   if (response.statusCode == 200) {
+  //     var userData = jsonDecode(response.body);
+  //     user = User(userData['id'], userData['firstName'], userData['lastName'],
+  //         userData['email'], userData['password'], 0.0);
+  //     return jsonDecode(response.body)["id"];
+  //   } else {
+  //     return "";
+  //   }
+  // }
 }
