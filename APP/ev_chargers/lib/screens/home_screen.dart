@@ -1,6 +1,7 @@
 import 'package:ev_chargers/screens/charging_screen.dart';
 import 'package:ev_chargers/style.dart';
 import 'package:flutter/material.dart';
+import '../models/user.dart';
 import 'map_screen.dart';
 import 'reservation_screen.dart';
 import 'profile_screen.dart';
@@ -71,12 +72,21 @@ class HomeScreenState extends State<HomeScreen>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChargingScreen(),
-            ),
-          )
+          if (User.checkIfUserHasMoney())
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChargingScreen(),
+                ),
+              )
+            }
+          else
+            {
+              showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => const NoMoneyAlert())
+            }
         },
         backgroundColor: Colors.amber,
         child: const Icon(
@@ -84,6 +94,28 @@ class HomeScreenState extends State<HomeScreen>
           color: Colors.white,
         ),
       ),
+    );
+  }
+}
+
+class NoMoneyAlert extends StatelessWidget {
+  const NoMoneyAlert({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text(
+        'Sorry',
+        style: titleTextStyle,
+      ),
+      content: const Text("Your don't have enough money on your account.",
+          style: bodyTextStyle),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('OK'),
+        ),
+      ],
     );
   }
 }
