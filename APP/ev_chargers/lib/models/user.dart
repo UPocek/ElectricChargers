@@ -84,7 +84,6 @@ class User {
       Uri.parse(
           '$url/user/passwordChange?id=${user?.id}&newPassword=$password'),
     );
-    print(response.statusCode);
     return response.statusCode == 200;
   }
 
@@ -142,7 +141,7 @@ class User {
     }
   }
 
-  static Future<bool> StartCharging(String rfid) async {
+  static Future<bool> startCharging(String rfid) async {
     bool trustSelfSigned = true;
     HttpClient httpClient = HttpClient()
       ..badCertificateCallback =
@@ -167,7 +166,11 @@ class User {
           '$url/transaction/stopCharging?userId=${user?.id}&kwh=$kwh&rfid=$rfid'),
     );
     print(response.statusCode);
-    var priceToPay = double.parse(response.body);
-    return priceToPay;
+    if (response.statusCode == 200) {
+      var priceToPay = double.parse(response.body);
+      user?.accountBalance -= priceToPay;
+      return priceToPay;
+    }
+    return 0.0;
   }
 }

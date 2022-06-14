@@ -1,7 +1,6 @@
 import 'package:ev_chargers/screens/charging_screen.dart';
 import 'package:ev_chargers/style.dart';
 import 'package:flutter/material.dart';
-import '../models/user.dart';
 import 'map_screen.dart';
 import 'reservation_screen.dart';
 import 'profile_screen.dart';

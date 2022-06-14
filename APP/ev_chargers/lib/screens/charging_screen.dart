@@ -26,13 +26,12 @@ class ChargingScreenState extends State<ChargingScreen> {
   }
 
   startCharging() async {
-    if (await User.StartCharging(widget.chargerId)) {
+    if (await User.startCharging(widget.chargerId)) {
       startTimer();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-              "Error : Charger is already reserved or you don't have money on your account"),
+          content: Text("Error : Charger is already reserved. Try another one"),
         ),
       );
     }

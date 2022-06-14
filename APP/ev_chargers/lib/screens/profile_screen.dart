@@ -9,6 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 
+import '../models/transaction.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -188,20 +190,124 @@ class BalanceWindow extends StatelessWidget {
   }
 }
 
-class LastFiveWindow extends StatelessWidget {
+class LastFiveWindow extends StatefulWidget {
   const LastFiveWindow({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  State<LastFiveWindow> createState() => _LastFiveWindowState();
 }
 
-class StatisticWindow extends StatelessWidget {
-  const StatisticWindow({Key? key}) : super(key: key);
+class _LastFiveWindowState extends State<LastFiveWindow> {
+  List<Transaction>? userLastFive;
+
+  getUserTransactions() async {
+    userLastFive = await Transaction.getLastFive();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserTransactions();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return PaddingCard(
+      DataTable(
+        columns: const [
+          DataColumn(
+              label: Text('Date',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('Location',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('Price',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('kWh',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+        ],
+        rows: fillRows(
+          userLastFive ?? [],
+        ),
+      ),
+    );
+  }
+
+  List<DataRow> fillRows(List<Transaction> userLastFive) {
+    return userLastFive
+        .map(
+          (e) => DataRow(
+            cells: [
+              DataCell(Text(e.transactionDate)),
+              DataCell(Text(e.station)),
+              DataCell(Text(e.price.toString())),
+              DataCell(Text(e.kwh.toString())),
+            ],
+          ),
+        )
+        .toList();
+  }
+}
+
+class StatisticWindow extends StatefulWidget {
+  const StatisticWindow({Key? key}) : super(key: key);
+
+  @override
+  State<StatisticWindow> createState() => _StatisticWindowState();
+}
+
+class _StatisticWindowState extends State<StatisticWindow> {
+  double kwhUsed = 0.0;
+
+  getUserTransactions() async {
+    kwhUsed = await Transaction.getStats();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserTransactions();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PaddingCard(
+      SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: Text(
+                "kWh Used",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: mediumTextSize,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: fontName),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Text(
+                '$kwhUsed',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: fontName,
+                  fontSize: hugeFontSize,
+                  fontWeight: FontWeight.w500,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: Colors.amber,
+    );
   }
 }
