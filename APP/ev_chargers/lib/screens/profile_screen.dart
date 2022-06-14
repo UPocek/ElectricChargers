@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:ev_chargers/screens/prepaid_screen.dart';
 import 'package:ev_chargers/style.dart';
 import 'package:ev_chargers/widgets/google_maps.dart';
@@ -93,11 +92,14 @@ class MapWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PaddingCard(
+    return PaddingCard(
       SizedBox(
         height: 300.0,
-        child: MapWidget(
-          LatLng(0, 0),
+        child: GestureDetector(
+          onTap: () => {},
+          child: MapWidget(
+            userPosition ?? const LatLng(0, 0),
+          ),
         ),
       ),
     );
@@ -218,16 +220,16 @@ class _LastFiveWindowState extends State<LastFiveWindow> {
         columns: const [
           DataColumn(
               label: Text('Date',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))),
           DataColumn(
-              label: Text('Location',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+              label: Text('Station',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))),
           DataColumn(
               label: Text('Price',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))),
           DataColumn(
               label: Text('kWh',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))),
         ],
         rows: fillRows(
           userLastFive ?? [],
@@ -241,10 +243,24 @@ class _LastFiveWindowState extends State<LastFiveWindow> {
         .map(
           (e) => DataRow(
             cells: [
-              DataCell(Text(e.transactionDate)),
-              DataCell(Text(e.station)),
-              DataCell(Text(e.price.toString())),
-              DataCell(Text(e.kwh.toString())),
+              DataCell(Text(
+                e.transactionDate,
+                style: TextStyle(fontSize: 12.0),
+              )),
+              DataCell(
+                Text(
+                  e.station,
+                  style: TextStyle(fontSize: 12.0),
+                ),
+              ),
+              DataCell(Text(
+                e.price.toString(),
+                style: TextStyle(fontSize: 12.0),
+              )),
+              DataCell(Text(
+                e.kwh.toString(),
+                style: TextStyle(fontSize: 12.0),
+              )),
             ],
           ),
         )

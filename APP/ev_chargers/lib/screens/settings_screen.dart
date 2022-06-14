@@ -39,9 +39,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CreateReservationScreen(
-                      '961256b6-e1a8-4e87-aa47-5b38cb25820b',
-                      'Galerija',
-                      'Bulevar Vudroa Vilsona 12'),
+                      '1EDEAB7C-9E50-40B3-AF72-83F84AB2FB5C',
+                      'Promenada',
+                      'Bulevar Oslobodjenja 119'),
                 ),
               );
             },

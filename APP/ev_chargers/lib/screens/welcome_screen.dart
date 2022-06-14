@@ -34,11 +34,11 @@ class WelcomeScreen extends StatelessWidget {
 
   loadNextScreen(BuildContext context) {
     if (index <= 1) {
-      Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: ((context) => WelcomeScreen(index + 1)),
       ));
     } else {
-      Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: ((context) => LogInScreen()),
       ));
     }

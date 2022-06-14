@@ -149,8 +149,8 @@ class CreditCardScreenState extends State<CreditCardScreen> {
   registerCard() async {
     if (await User.registerCard(user?.id,
         CreditCard(cardNumber, expiryDate, cardHolderName, cvvCode))) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
     }
   }
 

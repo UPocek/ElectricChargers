@@ -34,6 +34,7 @@ class ChargingScreenState extends State<ChargingScreen> {
           content: Text("Error : Charger is already reserved. Try another one"),
         ),
       );
+      Navigator.of(context).pop();
     }
   }
 

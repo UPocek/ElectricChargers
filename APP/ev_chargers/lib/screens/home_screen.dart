@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  static const List<Tab> navigationTabs = <Tab>[
+  static const List<Tab> navigationTabs = [
     Tab(icon: Icon(Icons.person_outline)),
     Tab(icon: Icon(Icons.calendar_today_outlined)),
     Tab(icon: Icon(Icons.map_outlined)),
@@ -40,6 +40,7 @@ class HomeScreenState extends State<HomeScreen>
     return Scaffold(
       // Appbar
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 5,
         toolbarHeight: 80,
         title: const Text("EV chargers"),

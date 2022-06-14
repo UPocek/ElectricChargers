@@ -40,17 +40,14 @@ class LogInScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     ElevatedButton(
-                      onPressed: (() => {signInAccount(context)}),
+                      onPressed: () => {signInAccount(context)},
                       child: const Text("Sign in"),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      padding: const EdgeInsets.only(top: 20.0),
                       child: InkWell(
                         child: const Text("Don't have an account yet?"),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: ((context) => RegistrationScreen())));
-                        },
+                        onTap: () => startRegistration(context),
                       ),
                     )
                   ],
@@ -63,13 +60,24 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
+  startRegistration(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: ((context) => RegistrationScreen()),
+      ),
+    );
+  }
+
   signInAccount(BuildContext context) async {
     if (!areInputsValid(context)) return;
     String id = await User.logIn(emailController.text, passwordController.text);
     if (id != "") {
       await remeberThatUserLogedIn(id);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
     } else {}
   }
 
