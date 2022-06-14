@@ -1,3 +1,4 @@
+import 'models/Car.dart';
 import 'models/user.dart';
 
 bool? loggedIn;
