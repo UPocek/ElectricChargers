@@ -1,3 +1,4 @@
+import 'package:ev_chargers/screens/car_picking_screen.dart';
 import 'package:ev_chargers/screens/current_account.dart';
 import 'package:ev_chargers/screens/login_screen.dart';
 import 'package:ev_chargers/screens/prepaid_screen.dart';
@@ -46,6 +47,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               );
             },
           ),
+          CardItem(Icons.electric_car_outlined, 'Set Up Car', function: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CarPickingScreen(),
+              ),
+            );
+          }),
         ])),
         PaddingCard(SettingsCard("Payments", [
           CardItem(Icons.payment_outlined, "Prepaid", function: () {

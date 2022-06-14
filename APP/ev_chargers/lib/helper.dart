@@ -1,7 +1,6 @@
-import 'models/Car.dart';
 import 'models/user.dart';
 
 bool? loggedIn;
 User? user;
 
-const url = 'https://localhost:7234/api';
+const url = 'https://sims2022.herokuapp.com/api';

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ev_chargers/models/Car.dart';
 import 'package:ev_chargers/models/credit_card.dart';
 import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -173,36 +172,5 @@ class User {
       return priceToPay;
     }
     return 0.0;
-  }
-
-  static Future<List<Car>?> getCars() async {
-    bool trustSelfSigned = true;
-    HttpClient httpClient = HttpClient()
-      ..badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => trustSelfSigned);
-    IOClient ioClient = IOClient(httpClient);
-
-    var response = await ioClient.get(
-      Uri.parse('$url/Car'),
-    );
-    Future<List<Car>?> cars = jsonDecode(response.body);
-    return cars;
-  }
-
-  static Future<bool> setUsersCar(String carId) async {
-    bool trustSelfSigned = true;
-    HttpClient httpClient = HttpClient()
-      ..badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => trustSelfSigned);
-    IOClient ioClient = IOClient(httpClient);
-
-    var response = await ioClient.post(
-      Uri.parse('$url/Car/setPersonsCar?userId=${user?.id}&carId=$carId'),
-    );
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }

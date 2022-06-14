@@ -5,6 +5,7 @@ import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import '../models/user.dart';
 import '../helper.dart';
+import 'car_picking_screen.dart';
 
 class CreditCardScreen extends StatefulWidget {
   const CreditCardScreen({Key? key}) : super(key: key);
@@ -150,7 +151,7 @@ class CreditCardScreenState extends State<CreditCardScreen> {
     if (await User.registerCard(user?.id,
         CreditCard(cardNumber, expiryDate, cardHolderName, cvvCode))) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+          MaterialPageRoute(builder: (context) => const CarPickingScreen()));
     }
   }
 
