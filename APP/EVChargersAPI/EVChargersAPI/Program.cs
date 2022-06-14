@@ -29,6 +29,7 @@ builder.Services.AddTransient<ICarRepository, CarRepository>();
 builder.Services.AddTransient<IStationRepository, StationRepository>();
 builder.Services.AddTransient<IChargerRepository, ChargerRepository>();
 builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
+builder.Services.AddTransient<ITransactionRepository, TransactionRepository>();
 
 
 
@@ -39,6 +40,7 @@ builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<IStationService, StationService>();
 builder.Services.AddTransient<IReservationService, ReservationService>();
 builder.Services.AddTransient<IChargerService, ChargerService>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
 
 //Cors
 builder.Services.AddCors(feature =>

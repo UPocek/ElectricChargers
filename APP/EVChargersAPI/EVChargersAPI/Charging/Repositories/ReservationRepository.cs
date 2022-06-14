@@ -50,6 +50,10 @@ namespace EVChargersAPI.Charging.Repositories
             return await _context.Reservations
                 .Where(x => x.UserId == userId)
                 .Where(x => x.ReservationDate > DateTime.Now)
+                .Include(x => x.Charger)
+                .ThenInclude(x => x.Station)
+                .ThenInclude(x => x.Address)
+                .ThenInclude(x => x.City)
                 .ToListAsync();
         }
 
@@ -67,8 +71,8 @@ namespace EVChargersAPI.Charging.Repositories
         {
             return (await _context.Reservations
                 .Where(x => x.UserId == userId)
-                .Where(x => x.ReservationDate.AddMinutes(-30) < date)
-                .Where(x => x.ReservationDate.AddMinutes(30) > date).ToListAsync()).Capacity == 0;
+                .Where(x => x.ReservationDate.AddMinutes(-30) <= date)
+                .Where(x => x.ReservationDate.AddMinutes(30) >= date).ToListAsync()).Capacity == 0;
 
         }
 
@@ -78,8 +82,8 @@ namespace EVChargersAPI.Charging.Repositories
 
             return (await _context.Reservations
                 .Where(x => x.ChargerId == id)
-                .Where(x => x.ReservationDate.AddMinutes(-30) < date)
-                .Where(x => x.ReservationDate.AddMinutes(30) > date).ToListAsync()).Capacity == 0;
+                .Where(x => x.ReservationDate.AddMinutes(-30) <= date)
+                .Where(x => x.ReservationDate.AddMinutes(30) >= date).ToListAsync()).Capacity == 0;
         }
 
         public void Save()

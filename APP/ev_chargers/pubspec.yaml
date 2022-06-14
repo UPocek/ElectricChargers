@@ -50,6 +50,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.9.3
+
+flutter_icons:
+  # android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/icon.png"
+  image_path_ios: "assets/icons/icon.png"
+  image_path_android: "assets/icons/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -64,6 +72,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/icons/icon.png
 
   fonts:
     - family: Montserrat

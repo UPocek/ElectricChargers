@@ -9,6 +9,8 @@ namespace EVChargersAPI.StationManagement.Repositories
     {
         Task<Charger> GetById(Guid id);
         Task<IEnumerable<Charger>> GetAllOnStation(Guid stationId);
+
+        Task<Charger> GetByRfid(string rfid);
     }
     public class ChargerRepository : IChargerRepository
     {
@@ -47,6 +49,11 @@ namespace EVChargersAPI.StationManagement.Repositories
         public Charger Update(Charger item)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Charger> GetByRfid(string rfid)
+        {
+            return await _context.Chargers.Where(x => x.Rfid == rfid).FirstOrDefaultAsync();
         }
     }
 }
