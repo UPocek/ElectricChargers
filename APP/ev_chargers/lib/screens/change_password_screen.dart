@@ -14,6 +14,7 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
+    bool ok;
     return Scaffold(
       appBar: AppBar(
         elevation: 5,
@@ -72,12 +73,25 @@ class ChangePasswordScreen extends StatelessWidget {
                           }
                         else
                           {
-                            await User.updatePassword(passwordController.text),
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Successfuly changed password"),
-                              ),
-                            ),
+                            ok = await User.updatePassword(
+                                passwordController.text),
+                            if (ok)
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text("Successfuly changed password"),
+                                  ),
+                                ),
+                              }
+                            else
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Password change failed"),
+                                  ),
+                                ),
+                              }
                           },
                         Navigator.of(context).pop(context)
                       },

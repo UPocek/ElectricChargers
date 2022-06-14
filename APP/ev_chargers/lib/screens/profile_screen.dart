@@ -69,15 +69,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return userPosition != null && accountBalance != null
-        ? SingleChildScrollView(
-            child: Column(
+        ? ListView(
             children: [
               MapWindow(userPosition),
               BalanceWindow(accountBalance ?? 0.0),
               LastFiveWindow(),
               StatisticWindow(),
             ],
-          ))
+          )
         : const Center(
             child: CircularProgressIndicator(
               color: Colors.amber,

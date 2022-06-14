@@ -72,21 +72,12 @@ class HomeScreenState extends State<HomeScreen>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
-          if (User.checkIfUserHasMoney())
-            {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChargingScreen(),
-                ),
-              )
-            }
-          else
-            {
-              showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => const NoMoneyAlert())
-            }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChargingScreen('1'),
+            ),
+          )
         },
         backgroundColor: Colors.amber,
         child: const Icon(

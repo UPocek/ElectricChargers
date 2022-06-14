@@ -11,7 +11,7 @@ class User {
   final String lastName;
   final String email;
   final String password;
-  final double accountBalance;
+  double accountBalance;
 
   User(this.id, this.firstName, this.lastName, this.email, this.password,
       this.accountBalance);
@@ -81,14 +81,10 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.put(
-      Uri.parse('$url/password'),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      },
-      body: json.encode(
-        {'password': password},
-      ),
+      Uri.parse(
+          '$url/user/passwordChange?id=${user?.id}&newPassword=$password'),
     );
+    print(response.statusCode);
     return response.statusCode == 200;
   }
 
@@ -106,9 +102,6 @@ class User {
 
     var response = await ioClient.get(
       Uri.parse('$url/user/getbyId?id=$userId'),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      },
     );
     var userData = jsonDecode(response.body);
     user = User(userData['id'], userData['firstName'], userData['lastName'],
@@ -134,7 +127,7 @@ class User {
     }
   }
 
-  static Future<bool> addCash(String? userId, int? value) async {
+  static Future addCash(String? userId, double value) async {
     bool trustSelfSigned = true;
     HttpClient httpClient = HttpClient()
       ..badCertificateCallback =
@@ -142,54 +135,39 @@ class User {
     IOClient ioClient = IOClient(httpClient);
 
     var response = await ioClient.put(
-      Uri.parse('$url/addCash?id=$userId&amount=$value'),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      },
+      Uri.parse('$url/user/addCash?id=$userId&amount=$value'),
+    );
+    if (response.statusCode == 200) {
+      user?.accountBalance += value;
+    }
+  }
+
+  static Future<bool> StartCharging(String rfid) async {
+    bool trustSelfSigned = true;
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+    IOClient ioClient = IOClient(httpClient);
+
+    var response = await ioClient.get(
+      Uri.parse('$url/transaction/startCharging?userId=${user?.id}&rfid=$rfid'),
     );
     return response.statusCode == 200;
   }
 
-  // static Future<double> payForCharging(double progress) {
-  //   bool trustSelfSigned = true;
-  //   HttpClient httpClient = HttpClient()
-  //     ..badCertificateCallback =
-  //         ((X509Certificate cert, String host, int port) => trustSelfSigned);
-  //   IOClient ioClient = IOClient(httpClient);
+  static Future<double> payForCharging(double kwh, String rfid) async {
+    bool trustSelfSigned = true;
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+    IOClient ioClient = IOClient(httpClient);
 
-  //   var response = await ioClient.put(
-  //     Uri.parse('$url/addCash?id=$userId&amount=$value'),
-  //     headers: {
-  //       HttpHeaders.contentTypeHeader: 'application/json',
-  //     },
-  //   );
-  //   return response.statusCode == 200;
-  // }
-
-  static bool checkIfUserHasMoney() {
-    return true;
+    var response = await ioClient.put(
+      Uri.parse(
+          '$url/transaction/stopCharging?userId=${user?.id}&kwh=$kwh&rfid=$rfid'),
+    );
+    print(response.statusCode);
+    var priceToPay = double.parse(response.body);
+    return priceToPay;
   }
-
-  // static Future<double> getPriceForCharging(){
-  //   bool trustSelfSigned = true;
-  //   HttpClient httpClient = HttpClient()
-  //     ..badCertificateCallback =
-  //         ((X509Certificate cert, String host, int port) => trustSelfSigned);
-  //   IOClient ioClient = IOClient(httpClient);
-
-  //   var response = await ioClient.get(
-  //     Uri.parse('$url/user/login?email=$email&password=$password'),
-  //     headers: {
-  //       HttpHeaders.contentTypeHeader: 'application/json',
-  //     },
-  //   );
-  //   if (response.statusCode == 200) {
-  //     var userData = jsonDecode(response.body);
-  //     user = User(userData['id'], userData['firstName'], userData['lastName'],
-  //         userData['email'], userData['password'], 0.0);
-  //     return jsonDecode(response.body)["id"];
-  //   } else {
-  //     return "";
-  //   }
-  // }
 }

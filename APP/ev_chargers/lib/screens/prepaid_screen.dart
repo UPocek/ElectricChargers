@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../helper.dart';
+import '../models/user.dart';
 import '../style.dart';
 
 class PrepaidScreen extends StatelessWidget {
@@ -87,8 +89,8 @@ class PrepaidScreen extends StatelessWidget {
                         ElevatedButton(
                           style: formButton,
                           onPressed: (() => {
-                                // User.addCash(user?.id,
-                                //     int.parse(_moneyController.text)),
+                                User.addCash(user?.id,
+                                    double.parse(_moneyController.text)),
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
