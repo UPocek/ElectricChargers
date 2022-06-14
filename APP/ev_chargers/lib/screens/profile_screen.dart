@@ -19,7 +19,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   double? accountBalance;
-
   LatLng? userPosition;
 
   Future<Position> _determinePosition() async {
@@ -60,27 +59,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  nfc() async {
-    // Check availability
-    bool isAvailable = await NfcManager.instance.isAvailable();
-    print(isAvailable);
-    // Start Session
-    NfcManager.instance.startSession(
-      onDiscovered: (NfcTag tag) async {
-        // Do something with an NfcTag instance.
-      },
-    );
-
-    // Stop Session
-    NfcManager.instance.stopSession();
-  }
-
   @override
   void initState() {
     super.initState();
     getUserLocation();
     getUserBalance();
-    nfc();
   }
 
   @override
@@ -90,8 +73,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               MapWindow(userPosition),
               BalanceWindow(accountBalance ?? 0.0),
-              LastFiveWindow(),
-              StatisticWindow(),
+              const LastFiveWindow(),
+              const StatisticWindow(),
+              ElevatedButton(onPressed: _tagRead, child: Icon(Icons.start)),
             ],
           )
         : const Center(
@@ -99,6 +83,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.amber,
             ),
           );
+  }
+
+  void _tagRead() {
+    NfcManager.instance.startSession(
+      pollingOptions: {NfcPollingOption.iso14443, NfcPollingOption.iso15693},
+      onDiscovered: (NfcTag tag) async {
+        print(tag.data['mifare']['identifier'].toString());
+        NfcManager.instance.stopSession();
+      },
+    );
   }
 }
 

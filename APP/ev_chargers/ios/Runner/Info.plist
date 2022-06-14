@@ -63,5 +63,7 @@
 	<string>This app needs access to NFC</string>
 	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
 	<string>This app needs access to NFC</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
