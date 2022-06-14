@@ -30,12 +30,21 @@ namespace EVChargersAPI.Charging.Repositories
 
         public async Task<IEnumerable<Transaction>> GetAll()
         {
-            return await _context.Transactions.ToListAsync();
+            return await _context.Transactions
+                .Include(x => x.Station)
+                .ThenInclude(x => x.Address)
+                .ThenInclude(x => x.City)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Transaction>> GetAllForUser(Guid userId)
         {
-            return await _context.Transactions.Where(x => x.UserId == userId).OrderByDescending(x => x.TransactionDate).ToListAsync();
+            return await _context.Transactions
+                .Where(x => x.UserId == userId)
+                .Include(x => x.Station)
+                .ThenInclude(x => x.Address)
+                .ThenInclude(x => x.City)
+                .OrderByDescending(x => x.TransactionDate).ToListAsync();
         }
 
         public double GetMonthlyKwh(Guid userId)

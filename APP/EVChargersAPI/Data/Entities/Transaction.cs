@@ -31,6 +31,7 @@ namespace Data.Entities
         [JsonPropertyName("kwh")]
         public decimal Kwh { get; set; }
 
-
+        [JsonPropertyName("fullStation")]
+        public Station Station { get; set; }
     }
 }
