@@ -39,6 +39,7 @@ dependencies:
   google_maps_flutter: ^2.1.7
   geolocator: ^8.2.1
   flutter_datetime_picker: ^1.5.1
+  nfc_manager: ^3.1.1
 
 dev_dependencies:
   flutter_test:

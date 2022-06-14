@@ -41,6 +41,13 @@ class CreateReservationScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Text(
+                stationAddress,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.only(top: 40.0, bottom: 40.0),
               child: TextField(
                 onTap: () {

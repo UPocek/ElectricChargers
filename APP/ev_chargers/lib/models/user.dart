@@ -119,7 +119,7 @@ class User {
     if (response.statusCode == 200) {
       var userData = jsonDecode(response.body);
       user = User(userData['id'], userData['firstName'], userData['lastName'],
-          userData['email'], userData['password'], 0.0);
+          userData['email'], userData['password'], userData['accountBalance']);
       return jsonDecode(response.body)['id'];
     } else {
       return '';
@@ -161,11 +161,11 @@ class User {
           ((X509Certificate cert, String host, int port) => trustSelfSigned);
     IOClient ioClient = IOClient(httpClient);
 
-    var response = await ioClient.put(
+    var response = await ioClient.post(
       Uri.parse(
           '$url/transaction/stopCharging?userId=${user?.id}&kwh=$kwh&rfid=$rfid'),
     );
-    print(response.statusCode);
+    // print(response.statusCode);
     if (response.statusCode == 200) {
       var priceToPay = double.parse(response.body);
       user?.accountBalance -= priceToPay;

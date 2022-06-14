@@ -75,7 +75,7 @@ class RegistrationScreen extends StatelessWidget {
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const CreditCardScreen()));
     } else {
-      showError(context, "Username already taken. Try a new one.");
+      showError(context, "Email already taken. Try a new one.");
     }
   }
 

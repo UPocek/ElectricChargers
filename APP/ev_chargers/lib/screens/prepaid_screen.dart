@@ -25,14 +25,7 @@ class PrepaidScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 80.0, 20.0, 40.0),
-            child: Text(
-              textAlign: TextAlign.center,
-              "Pay in advance and get great discounts 💸",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ),
+          const Heading(),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0),
             child: Card(
@@ -43,60 +36,72 @@ class PrepaidScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    "Enter the amount:",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: fontName,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 22,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 60.0, bottom: 50.0),
+                    child: Text(
+                      "Enter the amount:",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: fontName,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 22,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 50.0, right: 50.0),
                     child: Column(
                       children: [
-                        TextField(
-                          controller: _moneyController,
-                          style: prepaidTextStyle,
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: const BorderSide(
-                                  color: Colors.white,
-                                  width: 5.0,
-                                )),
-                            suffixIcon: const Icon(
-                              Icons.attach_money_outlined,
-                              color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 30.0),
+                          child: TextField(
+                            textAlign: TextAlign.end,
+                            controller: _moneyController,
+                            style: prepaidTextStyle,
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide: const BorderSide(
+                                    color: Colors.white,
+                                    width: 5.0,
+                                  )),
+                              suffixIcon: const Icon(
+                                Icons.attach_money_outlined,
+                                color: Colors.white,
+                              ),
+                              focusColor: Colors.white,
                             ),
-                            focusColor: Colors.white,
+                            cursorColor: Colors.white,
+                            maxLength: 6,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20.0,
                         ),
                         ElevatedButton(
                           style: formButton,
-                          onPressed: (() => {
-                                User.addCash(user?.id,
-                                    double.parse(_moneyController.text)),
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        "Successfuly added money to your account"),
-                                  ),
-                                ),
+                          onPressed: (() async => {
+                                if (double.parse(_moneyController.text) > 0)
+                                  {
+                                    await User.addCash(user?.id,
+                                        double.parse(_moneyController.text)),
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            "Successfuly added money to your account"),
+                                      ),
+                                    ),
+                                  }
+                                else
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            "You can't added negative sum of money"),
+                                      ),
+                                    ),
+                                  },
                                 Navigator.of(context).pop(context)
                               }),
                           child: const Text(
@@ -105,7 +110,7 @@ class PrepaidScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 10.0,
+                          height: 40.0,
                         ),
                       ],
                     ),
@@ -115,6 +120,22 @@ class PrepaidScreen extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class Heading extends StatelessWidget {
+  const Heading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20.0, 80.0, 20.0, 40.0),
+      child: Text(
+        textAlign: TextAlign.center,
+        "Pay in advance and get great discounts 💸",
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }
