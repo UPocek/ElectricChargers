@@ -13,6 +13,7 @@ namespace EVChargersAPI.Charging.Repositories
         Task<bool> IsAvailable(Guid userId, DateTime date);
         Task<bool> IsChargerAvailable(Guid? id, DateTime date);
         Reservation Delete(Reservation reservation);
+        Task<Reservation> GetCurrentReservation(Guid? id, DateTime now);
     }
     public class ReservationRepository : IReservationRepository
     {
@@ -67,6 +68,14 @@ namespace EVChargersAPI.Charging.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<Reservation> GetCurrentReservation(Guid? id, DateTime now)
+        {
+            return await _context.Reservations
+                 .Where(x => x.ChargerId == id)
+                 .Where(x => x.ReservationDate.AddMinutes(-30) <= now)
+                 .Where(x => x.ReservationDate.AddMinutes(30) >= now).FirstOrDefaultAsync();
+        }
+
         public async Task<bool> IsAvailable(Guid userId, DateTime date)
         {
             return (await _context.Reservations
@@ -85,6 +94,7 @@ namespace EVChargersAPI.Charging.Repositories
                 .Where(x => x.ReservationDate.AddMinutes(-30) <= date)
                 .Where(x => x.ReservationDate.AddMinutes(30) >= date).ToListAsync()).Capacity == 0;
         }
+
 
         public void Save()
         {
