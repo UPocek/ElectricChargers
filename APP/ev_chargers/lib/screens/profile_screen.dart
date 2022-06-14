@@ -7,7 +7,7 @@ import '../helper.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-
+import 'package:nfc_manager/nfc_manager.dart';
 import '../models/transaction.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -60,11 +60,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  nfc() async {
+    // Check availability
+    bool isAvailable = await NfcManager.instance.isAvailable();
+    print(isAvailable);
+    // Start Session
+    NfcManager.instance.startSession(
+      onDiscovered: (NfcTag tag) async {
+        // Do something with an NfcTag instance.
+      },
+    );
+
+    // Stop Session
+    NfcManager.instance.stopSession();
+  }
+
   @override
   void initState() {
     super.initState();
     getUserLocation();
     getUserBalance();
+    nfc();
   }
 
   @override

@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
     if (loggedIn == true) {
       await User.getPersonalInformations(prefs.getString('userId'));
     }
+    loggedIn = true;
     setState(() {});
   }
 
