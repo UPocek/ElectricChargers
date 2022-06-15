@@ -51,7 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const CarPickingScreen(),
+                builder: (context) => const CarPickingScreen(false),
               ),
             );
           }),
@@ -61,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PrepaidScreen(),
+                  builder: (context) => PrepaidScreen(() {}),
                 ));
           }),
           const CardItem(Icons.bolt_outlined, "My Pricing"),

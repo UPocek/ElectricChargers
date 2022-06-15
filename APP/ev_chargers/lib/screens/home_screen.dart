@@ -5,6 +5,7 @@ import 'map_screen.dart';
 import 'reservation_screen.dart';
 import 'profile_screen.dart';
 import 'settings_screen.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -71,20 +72,31 @@ class HomeScreenState extends State<HomeScreen>
         children: pages,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ChargingScreen('1'),
-            ),
-          )
-        },
+        onPressed: _tagRead,
         backgroundColor: Colors.amber,
         child: const Icon(
           Icons.bolt,
           color: Colors.white,
         ),
       ),
+    );
+  }
+
+  void _tagRead() {
+    NfcManager.instance.startSession(
+      pollingOptions: {NfcPollingOption.iso14443, NfcPollingOption.iso15693},
+      onDiscovered: (NfcTag tag) async {
+        NfcManager.instance.stopSession();
+        {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ChargingScreen(tag.data['mifare']['identifier'].toString()),
+            ),
+          );
+        }
+      },
     );
   }
 }

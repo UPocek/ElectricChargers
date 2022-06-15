@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import '../models/car.dart';
 
 class CarPickingScreen extends StatefulWidget {
-  const CarPickingScreen({super.key});
+  final bool firstTime;
+  const CarPickingScreen(this.firstTime, {super.key});
 
   @override
   State<CarPickingScreen> createState() => _CarPickingScreenState();
@@ -115,11 +116,18 @@ class _CarPickingScreenState extends State<CarPickingScreen> {
                             ),
                           ),
                         },
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: ((context) => const HomeScreen()),
-                        ),
-                      ),
+                      if (widget.firstTime)
+                        {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((context) => const HomeScreen()),
+                            ),
+                          ),
+                        }
+                      else
+                        {
+                          Navigator.of(context).pop(),
+                        }
                     },
                   ),
                 ],

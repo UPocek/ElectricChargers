@@ -6,7 +6,10 @@ import '../style.dart';
 
 class PrepaidScreen extends StatelessWidget {
   final TextEditingController _moneyController = TextEditingController();
-  PrepaidScreen({Key? key}) : super(key: key);
+
+  final Function updateUserInfo;
+
+  PrepaidScreen(this.updateUserInfo, {Key? key}) : super(key: key);
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordRepeatController =
@@ -23,7 +26,7 @@ class PrepaidScreen extends StatelessWidget {
         titleTextStyle: titleTextStyle,
         backgroundColor: Colors.white,
       ),
-      body: Column(
+      body: ListView(
         children: [
           const Heading(),
           Padding(
@@ -86,6 +89,7 @@ class PrepaidScreen extends StatelessWidget {
                                   {
                                     await User.addCash(user?.id,
                                         double.parse(_moneyController.text)),
+                                    updateUserInfo(),
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text(
@@ -102,7 +106,7 @@ class PrepaidScreen extends StatelessWidget {
                                       ),
                                     ),
                                   },
-                                Navigator.of(context).pop(context)
+                                Navigator.of(context).pop()
                               }),
                           child: const Text(
                             "Pay",

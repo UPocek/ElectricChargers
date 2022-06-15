@@ -7,7 +7,6 @@ import '../helper.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import 'package:nfc_manager/nfc_manager.dart';
 import '../models/transaction.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -72,10 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ? ListView(
             children: [
               MapWindow(userPosition),
-              BalanceWindow(accountBalance ?? 0.0),
+              BalanceWindow(accountBalance ?? 0.0, getUserBalance),
               const LastFiveWindow(),
               const StatisticWindow(),
-              ElevatedButton(onPressed: _tagRead, child: Icon(Icons.start)),
             ],
           )
         : const Center(
@@ -83,16 +81,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.amber,
             ),
           );
-  }
-
-  void _tagRead() {
-    NfcManager.instance.startSession(
-      pollingOptions: {NfcPollingOption.iso14443, NfcPollingOption.iso15693},
-      onDiscovered: (NfcTag tag) async {
-        print(tag.data['mifare']['identifier'].toString());
-        NfcManager.instance.stopSession();
-      },
-    );
   }
 }
 
@@ -105,11 +93,8 @@ class MapWindow extends StatelessWidget {
     return PaddingCard(
       SizedBox(
         height: 300.0,
-        child: GestureDetector(
-          onTap: () => {},
-          child: MapWidget(
-            userPosition ?? const LatLng(0, 0),
-          ),
+        child: MapWidget(
+          userPosition ?? const LatLng(0, 0),
         ),
       ),
     );
@@ -118,7 +103,9 @@ class MapWindow extends StatelessWidget {
 
 class BalanceWindow extends StatelessWidget {
   final double balance;
-  const BalanceWindow(this.balance, {Key? key}) : super(key: key);
+  final Function updateUserInfo;
+  const BalanceWindow(this.balance, this.updateUserInfo, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -163,12 +150,15 @@ class BalanceWindow extends StatelessWidget {
                         const EdgeInsets.fromLTRB(18.0, 10.0, 18.0, 10.0),
                       ),
                     ),
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PrepaidScreen(),
+                    onPressed: () => {
+                      updateUserInfo(),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PrepaidScreen(updateUserInfo),
+                        ),
                       ),
-                    ),
+                    },
                     child: const Text('Transfer Money'),
                   ),
                 ),
@@ -183,7 +173,7 @@ class BalanceWindow extends StatelessWidget {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PrepaidScreen(),
+                        builder: (context) => PrepaidScreen(updateUserInfo),
                       ),
                     ),
                     child: const Text('See benefits'),

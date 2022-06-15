@@ -73,47 +73,52 @@ class ChargingScreenState extends State<ChargingScreen> {
         titleTextStyle: titleTextStyle,
         backgroundColor: Colors.white,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text("Quick as Lightning!", style: titleTextStyle),
-              SizedBox(
-                  height: 400,
-                  width: 400,
-                  child: Stack(alignment: Alignment.center, children: [
-                    const Text(
-                      "⚡️",
-                      style: TextStyle(fontSize: 100),
-                    ),
-                    SizedBox(
-                        height: 200,
-                        width: 200,
-                        child: CircularProgressIndicator(
-                          semanticsValue: numberOfMinutesCharged.toString(),
-                          strokeWidth: 10,
-                          backgroundColor: Colors.amber,
-                          valueColor:
-                              const AlwaysStoppedAnimation<Color>(Colors.black),
-                          value: numberOfMinutesCharged / chargingUpperLimit,
-                        )),
-                  ])),
-              const SizedBox(
-                height: 40.0,
+      body: ListView(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text("Quick as Lightning!", style: titleTextStyle),
+                  SizedBox(
+                      height: 400,
+                      width: 400,
+                      child: Stack(alignment: Alignment.center, children: [
+                        const Text(
+                          "⚡️",
+                          style: TextStyle(fontSize: 100),
+                        ),
+                        SizedBox(
+                            height: 200,
+                            width: 200,
+                            child: CircularProgressIndicator(
+                              semanticsValue: numberOfMinutesCharged.toString(),
+                              strokeWidth: 10,
+                              backgroundColor: Colors.amber,
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.black),
+                              value:
+                                  numberOfMinutesCharged / chargingUpperLimit,
+                            )),
+                      ])),
+                  const SizedBox(
+                    height: 40.0,
+                  ),
+                  ElevatedButton(
+                    child: const Text('Stop charging'),
+                    onPressed: () {
+                      setState(() {
+                        _stop = true;
+                      });
+                    },
+                  ),
+                ],
               ),
-              ElevatedButton(
-                child: const Text('Stop charging'),
-                onPressed: () {
-                  setState(() {
-                    _stop = true;
-                  });
-                },
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
