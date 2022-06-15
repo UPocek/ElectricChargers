@@ -23,7 +23,7 @@ class _CarPickingScreenState extends State<CarPickingScreen> {
 
   var cars;
 
-  int activePage = 1;
+  int activePage = 0;
 
   getCars() async {
     cars = await Car.getCars();
