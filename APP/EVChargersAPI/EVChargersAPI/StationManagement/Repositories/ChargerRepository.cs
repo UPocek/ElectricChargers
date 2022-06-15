@@ -2,6 +2,7 @@
 using Data.Entities;
 using EVChargersAPI.UserManagement.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EVChargersAPI.StationManagement.Repositories
 {
@@ -23,7 +24,9 @@ namespace EVChargersAPI.StationManagement.Repositories
 
         public Charger Create(Charger item)
         {
-            throw new NotImplementedException();
+            EntityEntry<Charger> updatedEntry = _context.Chargers.Attach(item);
+            _context.Entry(item).State = EntityState.Modified;
+            return updatedEntry.Entity;
         }
 
         public async Task<IEnumerable<Charger>> GetAll()
