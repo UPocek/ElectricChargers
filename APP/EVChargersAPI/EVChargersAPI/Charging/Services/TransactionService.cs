@@ -59,10 +59,10 @@ namespace EVChargersAPI.Charging.Services
             if (user.AccountBalance <= 0) throw new Exception("User is blocked due to not paying chargings!");
             Charger charger = await _chargerRepository.GetByRfid(rfid);
             if (charger == null) throw new Exception("Charger cannot be found!");
-            bool canStart = await _reservationRepository.IsChargerAvailable(charger.Id, DateTime.Now);
+            bool canStart = await _reservationRepository.IsChargerAvailable(charger.Id, DateTime.Now.AddHours(2));
             if(!canStart)
             {
-                Reservation reservation = await _reservationRepository.GetCurrentReservation(charger.Id, DateTime.Now);
+                Reservation reservation = await _reservationRepository.GetCurrentReservation(charger.Id, DateTime.Now.AddHours(2));
                 if(reservation.UserId == userId)
                 {
                     canStart = true;
@@ -84,7 +84,7 @@ namespace EVChargersAPI.Charging.Services
 
             Transaction transaction = new Transaction
             {
-                TransactionDate = DateTime.Now,
+                TransactionDate = DateTime.Now.AddHours(2),
                 StationId = charger.StationId,
                 UserId = userId,
                 Kwh = (decimal)kwh,
