@@ -24,9 +24,7 @@ namespace EVChargersAPI.StationManagement.Repositories
 
         public Charger Create(Charger item)
         {
-            EntityEntry<Charger> updatedEntry = _context.Chargers.Attach(item);
-            _context.Entry(item).State = EntityState.Modified;
-            return updatedEntry.Entity;
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Charger>> GetAll()
@@ -51,7 +49,9 @@ namespace EVChargersAPI.StationManagement.Repositories
 
         public Charger Update(Charger item)
         {
-            throw new NotImplementedException();
+            EntityEntry<Charger> updatedEntry = _context.Chargers.Attach(item);
+            _context.Entry(item).State = EntityState.Modified;
+            return updatedEntry.Entity;
         }
 
         public async Task<Charger> GetByRfid(string rfid)
