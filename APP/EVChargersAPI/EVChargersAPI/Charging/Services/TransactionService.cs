@@ -54,10 +54,12 @@ namespace EVChargersAPI.Charging.Services
 
         public async Task<bool> StartCharging(Guid userId, string rfid)
         {
+
             User user = await _userRepository.GetById(userId);
             if (user == null) throw new Exception("User cannot be found!");
             if (user.AccountBalance <= 0) throw new Exception("User is blocked due to not paying chargings!");
             Charger charger = await _chargerRepository.GetByRfid(rfid);
+            if (charger.IsBusy) return false;
             if (charger == null) throw new Exception("Charger cannot be found!");
             bool canStart = await _reservationRepository.IsChargerAvailable(charger.Id, DateTime.Now.AddHours(2));
             if(!canStart)
@@ -69,7 +71,13 @@ namespace EVChargersAPI.Charging.Services
                 }
             }
             if (canStart)
+            {
+                charger.IsBusy = true;
+                _ = _chargerRepository.Update(charger);
+                _chargerRepository.Save();
                 return true;
+    
+            }
             return false;
         }
 
@@ -90,6 +98,10 @@ namespace EVChargersAPI.Charging.Services
                 Kwh = (decimal)kwh,
                 Price = chargingPrice.Price * (decimal)kwh,
             };
+
+            charger.IsBusy = false;
+            _ = _chargerRepository.Update(charger);
+            _chargerRepository.Save();
 
             _ = _transactionRepository.Create(transaction);
             _transactionRepository.Save();
