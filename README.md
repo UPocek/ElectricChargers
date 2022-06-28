@@ -27,6 +27,8 @@ After diagrams were approved we stared working on a prototipe of the mobile app.
 
 For presentation day we created NFC equipt station model build from cardboard and published our app to the IOS App Store and also TestFlight. By doing this we were able to install application on clients personal Iphone and to give him full fell of how will app work in the real world.
 
+## Final result
+
 <div>
   <picture>
     <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-1.PNG">
