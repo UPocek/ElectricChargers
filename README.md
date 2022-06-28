@@ -23,7 +23,7 @@ In initial stages of comunication with our client we created UML use case diagra
 
 After diagrams were approved we stared working on a prototipe of the mobile app. As a framework for this part we choose [Flutter](https://flutter.dev/) an open source framework by Google for building beautiful, natively compiled, multi-platform applications from a single codebase. Experience with flutter was awesome and after a few intense coding sessions we had a working prototipe fully equipt with custom googe map api integration, NFC triggers and backend coded in C# that uses SQL database hosted on Azure for data persistance.
 
-### Stage 4 - Final result presentation
+### Stage 4 - Result presentation
 
 For presentation day we created NFC equipt station model build from cardboard and published our app to the IOS App Store and also TestFlight. By doing this we were able to install application on clients personal Iphone and to give him full fell of how will app work in the real world.
 
