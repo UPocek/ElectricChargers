@@ -29,72 +29,76 @@ For presentation day we created an NFC equipt station model built from cardboard
 
 ## Final result
 
+<div align="center">
+
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-1.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-1.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-1.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-2.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-2.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-2.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-3.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-3.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-3.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-4.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-4.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-4.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-5.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-5.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-5.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-6.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-6.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-6.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-7.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-7.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-7.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-8.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-8.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-8.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-9.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-9.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-9.PNG">
   </picture>
 </div>
 
 <div>
   <picture>
-    <source width="300px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-10.PNG">
+    <source width="250px" media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-10.PNG">
     <img alt="Flutter" src="https://github.com/UPocek/ElectricChargers/blob/main/Uspomene/app-screen-10.PNG">
   </picture>
+</div>
+  
 </div>
